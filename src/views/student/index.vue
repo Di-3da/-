@@ -256,7 +256,7 @@
 
 <script>
 import { page, add, update, deleteById, selectById ,dis} from "@/api/student.js";
-import { findAll } from "@/api/classes.js";
+import { findAll } from "@/api/medicine.js";
 import { getToken } from '@/utils/auth';
 
 export default {

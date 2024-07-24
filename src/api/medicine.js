@@ -2,44 +2,44 @@ import request from '@/utils/request'
 
 export function findAll() {
     return request({
-        url: '/class/all',
+        url: '/medicine',
         method: 'get'
     })
 }
 
-export function add(classes) {
+export function add(medicine) {
     return request({
-        url: '/class',
+        url: '/medicine',
         method: 'post',
-        data: classes
+        data: medicine
     })
 }
 
-export function update(classes) {
+export function update(medicine) {
     return request({
-        url: '/class',
+        url: '/medicine',
         method: 'put',
-        data: classes
+        data: medicine
     })
 }
 
 export function deleteById(id) {
     return request({
-      url: '/class/' + id,
+      url: '/medicine/' + id,
       method: 'delete'
     })
   }
   
   export function selectById(id) {
     return request({
-      url: '/class/' + id,
+      url: '/medicine/' + id,
       method: 'get'
     })
   }
   
   export function page(name,begin,end,page,pageSize) {
     return request({
-      url: '/class?name='+name+'&begin='+begin+'&end='+end+'&page='+page+'&pageSize='+pageSize,
+      url: '/medicine?name='+name+'&begin='+begin+'&end='+end+'&page='+page+'&pageSize='+pageSize,
       method: 'get'
     })
   }

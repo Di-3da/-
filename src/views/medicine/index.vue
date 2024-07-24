@@ -108,6 +108,7 @@
     
     <!--表格显示药品信息-->
     <el-table :data="tableData" style="width: 100%" border>
+    <el-table-column prop="index" width="100" label="序号" align="center" type="index"></el-table-column>
     <el-table-column prop="drugCode" width="150" label="药品编码" align="center"></el-table-column>
     <el-table-column prop="drugName" width="200" label="药品名称" align="center"></el-table-column>
     <el-table-column prop="chargeCategory" width="150" label="收费类别" align="center"></el-table-column>
@@ -208,8 +209,8 @@
 </template>
 
 <script>
-import { page, add, update, selectById, deleteById } from "@/api/classes.js";
-import { findAll } from "@/api/emp.js";
+import { page, add, update, selectById, deleteById } from "@/api/medicine.js";
+import { findAll } from "@/api/medicine.js";
 import { getToken } from '@/utils/auth';
 
 export default {
@@ -251,6 +252,7 @@ export default {
           { required: true, message: '特检特制标志', trigger: 'change' }
         ]
       },
+      //远程搜索
       options: [],
         value: [],
         list: [],
@@ -262,6 +264,7 @@ export default {
         tableData: [
         // 示例数据
         {
+          id: 1,
           drugCode: '001',
           drugName: '药品A',
           chargeCategory: '类别1',

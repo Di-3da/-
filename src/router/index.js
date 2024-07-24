@@ -38,39 +38,39 @@ export const constantRoutes = [
     meta: { title: '医疗信息基本维护', icon: 'el-icon-s-platform' },
     children: [
       {
-        path: 'classes',
-        name: 'Classes',
-        component: () => import('@/views/classes'),
+        path: 'medicine',
+        name: 'Medicine',
+        component: () => import('@/views/medicine'),
         meta: { title: '药品信息维护', icon: 'el-icon-s-order' }
       },
       {
-        path: 'student',
-        name: 'Student',
-        component: () => import('@/views/classes1'),
+        path: 'treat',
+        name: 'Treat',
+        component: () => import('@/views/treat'),
         meta: { title: '诊疗项目信息维护', icon: 'el-icon-s-order' }
       },
       {
         path: 'service',
-        name: 'service',
-        component: () => import('@/views/classes'),
+        name: 'Service',
+        component: () => import('@/views/service'),
         meta: { title: '服务设施项目维护', icon: 'el-icon-s-order' }
       },
       {
         path: 'disease',
-        name: 'disease',
-        component: () => import('@/views/classes'),
+        name: 'Disease',
+        component: () => import('@/views/disease'),
         meta: { title: '病种信息维护', icon: 'el-icon-s-order' }
       },
       {
-        path: 'mechanism',
-        name: 'mechanism',
-        component: () => import('@/views/classes'),
+        path: 'institution',
+        name: 'Institution',
+        component: () => import('@/views/institution'),
         meta: { title: '定点医疗机构信息维护', icon: 'el-icon-s-order' }
       },
       {
-        path: 'treatment',
-        name: 'treatment',
-        component: () => import('@/views/classes'),
+        path: 'parameter',
+        name: 'Parameter',
+        component: () => import('@/views/parameter'),
         meta: { title: '医疗待遇计算参数维护', icon: 'el-icon-s-order' }
       }
     ]
@@ -83,15 +83,15 @@ export const constantRoutes = [
     meta: { title: '医疗待遇审批', icon: 'el-icon-s-check' },
     children: [
       {
-        path: 'dept',
-        name: 'Dept',
-        component: () => import('@/views/person-approval'),
+        path: 'application',
+        name: 'Application',
+        component: () => import('@/views/application'),
         meta: { title: '人员就诊机构审批', icon: 'el-icon-s-custom' }
       },
       {
-        path: 'emp',
-        name: 'Emp',
-        component: () => import('@/views/emp'),
+        path: 'special',
+        name: 'Special',
+        component: () => import('@/views/special'),
         meta: { title: '特检特治审批', icon: 'el-icon-s-ticket' }
       }
     ]
@@ -141,15 +141,15 @@ export const constantRoutes = [
     meta: { title: '公共业务', icon: 'el-icon-more' },
     children: [
       {
-        path: 'unit-information',
-        name: 'unit-information',
-        component: () => import('@/views/emp'),
+        path: 'company',
+        name: 'Company',
+        component: () => import('@/views/company'),
         meta: { title: '单位基本信息维护', icon: 'el-icon-s-data' }
       },
       {
-        path: 'person-information',
-        name: 'person-information',
-        component: () => import('@/views/person-information'),
+        path: 'people',
+        name: 'People',
+        component: () => import('@/views/people'),
         meta: { title: '个人基本信息维护', icon: 'el-icon-user-solid' }
       }
     ]
