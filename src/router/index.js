@@ -104,15 +104,15 @@ export const constantRoutes = [
     meta: { title: '医保中心报销', icon: 'el-icon-s-tools' },
     children: [
       {
-        path: 'emp-report',
-        name: 'emp-report',
-        component: () => import('@/views/emp-report'),
+        path: 'insurance',
+        name: 'Insurance',
+        component: () => import('@/views/insurance'),
         meta: { title: '中心报销', icon: 'el-icon-s-claim' }
       },
       {
-        path: 'student-report',
-        name: 'student-report',
-        component: () => import('@/views/student-report'),
+        path: 'cancelInsurance',
+        name: 'CancelInsurance',
+        component: () => import('@/views/cancelInsurance'),
         meta: { title: '取消报销', icon: 'el-icon-s-release' }
       }
     ]
@@ -127,7 +127,7 @@ export const constantRoutes = [
       {
         path: 'person-research',
         name: 'person-research',
-        component: () => import('@/views/emp-report'),
+        component: () => import('@/views/research'),
         meta: { title: '医疗人员费用查询', icon: 'el-icon-s-goods' }
       }
     ]

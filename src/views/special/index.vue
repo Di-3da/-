@@ -185,8 +185,8 @@
 </template>
 
 <script>
-import { page, add, update, deleteById, selectById } from "@/api/emp.js";
-import { findAll } from "@/api/dept.js";
+import { page, add, update, deleteById, selectById } from "@/api/medicine.js";
+import { findAll } from "@/api/medicine.js";
 import { getToken } from '@/utils/auth';
 import { upload } from "@/api/upload";
 

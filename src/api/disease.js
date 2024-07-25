@@ -39,7 +39,7 @@ export function deleteById(id) {
   
   export function page(name,begin,end,page,pageSize) {
     return request({
-      url: '/disease?name='+name+'&begin='+begin+'&end='+end+'&page='+page+'&pageSize='+pageSize,
+      url: '/disease/page?name='+name+'&page='+page+'&pageSize='+pageSize,
       method: 'get'
     })
   }
