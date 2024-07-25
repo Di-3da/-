@@ -43,12 +43,10 @@ module.exports = {
       //   target: 'http://canzg-wsl.itheima.net/enterpise',
         // target: 'http://172.17.0.60:8200',
         //target: process.env.VUE_APP_URL,
-        target: process.env.VUE_APP_URL,
-        ws: false,
-        secure: false,
+        target: 'http://localhost:8080',
         changeOrigin: true,
         pathRewrite:{
-          '^/api':''
+          '/api':''
         }
       }
     },

@@ -4,7 +4,7 @@ import Router from '@/router'
 import { removeToken,getToken } from '@/utils/auth'
 
 const service = axios.create({
-  baseURL: "http://localhost:8080", // url = base url + request url
+  baseURL: "/api", // url = base url + request url
   withCredentials: false,
   timeout: 500000
 })

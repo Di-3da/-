@@ -2,44 +2,44 @@ import request from '@/utils/request'
 
 export function findAll() {
     return request({
-        url: '/institution',
+        url: '/people',
         method: 'get'
     })
 }
 
-export function add(institution) {
+export function add(people) {
     return request({
-        url: '/institution',
+        url: '/people',
         method: 'post',
-        data: institution
+        data: people
     })
 }
 
-export function update(institution) {
+export function update(people) {
     return request({
-        url: '/institution',
+        url: '/people',
         method: 'put',
-        data: institution
+        data: people
     })
 }
 
 export function deleteById(id) {
     return request({
-      url: '/institution/' + id,
+      url: '/people/' + id,
       method: 'delete'
     })
   }
   
   export function selectById(id) {
     return request({
-      url: '/institution/' + id,
+      url: '/people/' + id,
       method: 'get'
     })
   }
   
   export function page(name,page,pageSize) {
     return request({
-      url: '/institution/page?name='+name+'&page='+page+'&pageSize='+pageSize,
+      url: '/people/page?name='+name+'&page='+page+'&pageSize='+pageSize,
       method: 'get'
     })
   }

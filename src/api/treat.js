@@ -37,7 +37,7 @@ export function deleteById(id) {
     })
   }
   
-  export function page(name,begin,end,page,pageSize) {
+  export function page(name,page,pageSize) {
     return request({
       url: '/treat/page?name='+name+'&page='+page+'&pageSize='+pageSize,
       method: 'get'

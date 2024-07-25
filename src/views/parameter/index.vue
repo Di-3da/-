@@ -20,15 +20,15 @@
 </template>
 
 <script>
-import CeilingLine from './topLine.vue';
-import DeductibleStandard from './payment.vue';
-import PersonalSelfPayRatio from './personbill.vue';
+import topLine from './topLine.vue';
+import payment from './payment.vue';
+import personbill from './personbill.vue';
 
 export default {
   components: {
-    CeilingLine,
-    DeductibleStandard,
-    PersonalSelfPayRatio
+    topLine,
+    payment,
+    personbill
   },
   data() {
     return {

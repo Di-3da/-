@@ -209,7 +209,7 @@
     methods: {
       
       page() {
-        page(this.searchClass.name, this.searchTime[0], this.searchTime[1], this.currentPage, this.pageSize).then((res) => {
+        page(this.searchClass.name, this.currentPage, this.pageSize).then((res) => {
           this.totalCount = res.data.data.total;
           this.tableData = res.data.data.rows;
         });

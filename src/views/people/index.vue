@@ -13,8 +13,10 @@
 
         <!-- 新增个人信息按钮 -->
         <el-button type="primary" @click="openAddDialog" style="margin-top: 20px;">新增个人信息</el-button>
+        <br>
+        <br>
         <!-- 个人信息表格 -->
-        <el-table :data="personData" style="width: 100%">
+        <el-table :data="personData" style="width: 100%" border>
   <el-table-column prop="peopleId" label="个人ID" width="120"></el-table-column>
   <el-table-column prop="cardType" label="证件类型" width="120">
     <template slot-scope="scope">
@@ -142,7 +144,7 @@
   </el-table-column>
   <el-table-column prop="socialSecurityId" label="社保卡号" width="150"></el-table-column>
   <el-table-column prop="medinsId" label="定点医疗机构编码" width="150"></el-table-column>
-  <el-table-column label="操作" width="220" fixed="right">
+  <el-table-column label="操作" width="150" fixed="right">
     <template slot-scope="scope">
       <el-button @click="editPerson(scope.row)" type="primary" size="small">编辑</el-button>
       <el-button @click="deletePerson(scope.row)" type="danger" size="small">删除</el-button>
@@ -153,199 +155,173 @@
 
 
         <!-- 新增/编辑个人信息对话框 -->
-        <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="30%">
-            <el-form :model="formPerson" label-width="atuo" class="person-info-form">
-                <el-form-item label="证件类型">
-                    <el-select v-model="formPerson.cardType" placeholder="请选择证件类型">
-                        <el-option v-for="type in documentTypes" :key="type.value" :label="type.label"
-                            :value="type.value"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="证件编号">
-                    <el-input v-model="formPerson.cardId"></el-input>
-                </el-form-item>
-                <el-form-item label="姓名">
-                    <el-input v-model="formPerson.name"></el-input>
-                </el-form-item>
-                <el-form-item label="性别">
-                    <el-select v-model="formPerson.sex" placeholder="请选择性别">
-                        <el-option label="男" value="0"></el-option>
-                        <el-option label="女" value="1"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="民族">
-                    <el-select v-model="formPerson.nationality" placeholder="请选择民族" filterable>
-                        <el-option v-for="ethnicity in ethnicities" :key="ethnicity.value" :label="ethnicity.label"
-                            :value="ethnicity.value"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="出生日期">
-                    <el-date-picker v-model="formPerson.brithday" type="date" placeholder="选择日期"></el-date-picker>
-                </el-form-item>
-                <el-form-item label="参加工作日期">
-                    <el-date-picker v-model="formPerson.workDate" type="date" placeholder="选择日期"></el-date-picker>
-                </el-form-item>
-                <el-form-item label="离退休日期">
-                    <el-date-picker v-model="formPerson.retirementDate" type="date" placeholder="选择日期"></el-date-picker>
-                </el-form-item>
-                <el-form-item label="离退休状态">
-                    <el-select v-model="formPerson.retirement" placeholder="请选择离退休状态">
-                        <el-option v-for="status in retirementStatuses" :key="status.value" :label="status.label"
-                            :value="status.value"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="户口性质">
-                    <el-select v-model="formPerson.residenceType" placeholder="请选择户口性质">
-                        <el-option v-for="type in residenceTypes" :key="type.value" :label="type.label"
-                            :value="type.value"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="户口所在地">
-                    <el-input v-model="formPerson.residenceAdress"></el-input>
-                </el-form-item>
-                <el-form-item label="文化程度">
-                    <el-select v-model="formPerson.education" placeholder="请选择文化程度">
-                        <el-option v-for="level in educationLevels" :key="level.value" :label="level.label"
-                            :value="level.value"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="政治面貌">
-                    <el-select v-model="formPerson.politicalStatus" placeholder="请选择政治面貌">
-                        <el-option v-for="status in politicalStatuses" :key="status.value" :label="status.label"
-                            :value="status.value"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="个人身份">
-                    <el-select v-model="formPerson.identity" placeholder="请选择个人身份" filterable>
-                        <el-option v-for="identity in identities" :key="identity.value" :label="identity.label"
-                            :value="identity.value"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="用工形式">
-                    <el-select v-model="formPerson.employment" placeholder="请选择用工形式" filterable>
-                        <el-option v-for="employment in employments" :key="employment.value" :label="employment.label"
-                            :value="employment.value"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="专业技术职务">
-                    <el-select v-model="formPerson.technicalPosition" placeholder="请选择专业技术职务" filterable>
-                        <el-option v-for="position in technicalPositions" :key="position.value" :label="position.label"
-                            :value="position.value"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="国家职业资格等级（工人技术等级）">
-                    <el-select v-model="formPerson.workerLevel" placeholder="请选择职业资格等级" filterable>
-                        <el-option v-for="level in workerLevels" :key="level.value" :label="level.label"
-                            :value="level.value"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="婚姻状况">
-                    <el-select v-model="formPerson.marriage" placeholder="请选择婚姻状况" filterable>
-                        <el-option v-for="marriage in marriages" :key="marriage.value" :label="marriage.label"
-                            :value="marriage.value"></el-option>
-                    </el-select>
-                </el-form-item>
+         <!-- 新增/编辑个人信息对话框 -->
+  <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="80%" custom-class="custom-dialog">
+    <el-form :model="formPerson" label-width="150px" class="person-info-form" style="display: flex; flex-wrap: wrap;">
+      <el-col :span="8">
+        <el-form-item label="证件类型">
+          <el-select v-model="formPerson.cardType" placeholder="请选择证件类型">
+            <el-option v-for="type in documentTypes" :key="type.value" :label="type.label" :value="type.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="证件编号">
+          <el-input v-model="formPerson.cardId"></el-input>
+        </el-form-item>
+        <el-form-item label="姓名">
+          <el-input v-model="formPerson.name"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-select v-model="formPerson.sex" placeholder="请选择性别">
+            <el-option label="男" value="0"></el-option>
+            <el-option label="女" value="1"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="民族">
+          <el-select v-model="formPerson.nationality" placeholder="请选择民族" filterable>
+            <el-option v-for="ethnicity in ethnicities" :key="ethnicity.value" :label="ethnicity.label" :value="ethnicity.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="出生日期">
+          <el-date-picker v-model="formPerson.brithday" type="date" placeholder="选择日期"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="参加工作日期">
+          <el-date-picker v-model="formPerson.workDate" type="date" placeholder="选择日期"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="离退休日期">
+          <el-date-picker v-model="formPerson.retirementDate" type="date" placeholder="选择日期"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="离退休状态">
+          <el-select v-model="formPerson.retirement" placeholder="请选择离退休状态">
+            <el-option v-for="status in retirementStatuses" :key="status.value" :label="status.label" :value="status.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="户口性质">
+          <el-select v-model="formPerson.residenceType" placeholder="请选择户口性质">
+            <el-option v-for="type in residenceTypes" :key="type.value" :label="type.label" :value="type.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="户口所在地">
+          <el-input v-model="formPerson.residenceAdress"></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="8">
+        <el-form-item label="文化程度">
+          <el-select v-model="formPerson.education" placeholder="请选择文化程度">
+            <el-option v-for="level in educationLevels" :key="level.value" :label="level.label" :value="level.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="政治面貌">
+          <el-select v-model="formPerson.politicalStatus" placeholder="请选择政治面貌">
+            <el-option v-for="status in politicalStatuses" :key="status.value" :label="status.label" :value="status.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="个人身份">
+          <el-select v-model="formPerson.identity" placeholder="请选择个人身份" filterable>
+            <el-option v-for="identity in identities" :key="identity.value" :label="identity.label" :value="identity.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="用工形式">
+          <el-select v-model="formPerson.employment" placeholder="请选择用工形式" filterable>
+            <el-option v-for="employment in employments" :key="employment.value" :label="employment.label" :value="employment.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="专业技术职务">
+          <el-select v-model="formPerson.technicalPosition" placeholder="请选择专业技术职务" filterable>
+            <el-option v-for="position in technicalPositions" :key="position.value" :label="position.label" :value="position.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="国家职业资格等级（工人技术等级）">
+          <el-select v-model="formPerson.workerLevel" placeholder="请选择职业资格等级" filterable>
+            <el-option v-for="level in workerLevels" :key="level.value" :label="level.label" :value="level.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="婚姻状况">
+          <el-select v-model="formPerson.marriage" placeholder="请选择婚姻状况" filterable>
+            <el-option v-for="marriage in marriages" :key="marriage.value" :label="marriage.label" :value="marriage.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="行政职务">
+          <el-select v-model="formPerson.administrativePosition" placeholder="请选择行政职务" filterable>
+            <el-option v-for="position in administrativePositions" :key="position.value" :label="position.label" :value="position.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="备注">
+          <el-input v-model="formPerson.note"></el-input>
+        </el-form-item>
+        <el-form-item label="单位编码">
+          <el-input v-model="formPerson.companyId"></el-input>
+        </el-form-item>
+        <el-form-item label="医疗人员类别">
+          <el-select v-model="formPerson.medicalPersonnel" placeholder="请选择医疗人员类别" filterable>
+            <el-option v-for="category in medicalPersonnelCategories" :key="category.value" :label="category.label" :value="category.value"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <el-col :span="8">
+        <el-form-item label="健康状况">
+          <el-select v-model="formPerson.health" placeholder="请选择健康状况" filterable>
+            <el-option v-for="status in healthStatuses" :key="status.value" :label="status.label" :value="status.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="劳模标志">
+          <el-select v-model="formPerson.modelWorker" placeholder="请选择劳模标志" filterable>
+            <el-option v-for="flag in modelWorkerFlags" :key="flag.value" :label="flag.label" :value="flag.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="干部标志">
+          <el-select v-model="formPerson.cadre" placeholder="请选择干部标志" filterable>
+            <el-option v-for="flag in cadreFlags" :key="flag.value" :label="flag.label" :value="flag.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="公务员标志">
+          <el-select v-model="formPerson.civilServant" placeholder="请选择公务员标志" filterable>
+            <el-option v-for="flag in civilServantFlags" :key="flag.value" :label="flag.label" :value="flag.value"></el-option>
+        </el-select>
+        </el-form-item>
+        <el-form-item label="在编标志">
+          <el-select v-model="formPerson.authorizedStrength" placeholder="请选择在编标志" filterable>
+            <el-option v-for="flag in authorizedStrengthFlags" :key="flag.value" :label="flag.label" :value="flag.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="居民类别">
+          <el-select v-model="formPerson.residentType" placeholder="请选择居民类别" filterable>
+            <el-option v-for="type in residentTypes" :key="type.value" :label="type.label" :value="type.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="灵活就业标志">
+          <el-select v-model="formPerson.flexibleEmployment" placeholder="请选择灵活就业标志" filterable>
+            <el-option v-for="flag in flexibleEmploymentFlags" :key="flag.value" :label="flag.label" :value="flag.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="农民工标志">
+          <el-select v-model="formPerson.migrantWorker" placeholder="请选择农民工标志" filterable>
+            <el-option v-for="flag in migrantWorkerFlags" :key="flag.value" :label="flag.label" :value="flag.value"></el-option>
+        </el-select>
+        </el-form-item>
+        <el-form-item label="雇主标志">
+          <el-select v-model="formPerson.employer" placeholder="请选择雇主标志" filterable>
+            <el-option v-for="flag in employerFlags" :key="flag.value" :label="flag.label" :value="flag.value"></el-option>
+        </el-select>
+        </el-form-item>
+        <el-form-item label="军转人员标志">
+          <el-select v-model="formPerson.militaryPersonnel" placeholder="请选择军转人员标志" filterable>
+            <el-option v-for="flag in militaryPersonnelFlags" :key="flag.value" :label="flag.label" :value="flag.value"></el-option>
+        </el-select>
+        </el-form-item>
+        <el-form-item label="社保卡号">
+          <el-input v-model="formPerson.socialSecurityId"></el-input>
+        </el-form-item>
+        <el-form-item label="定点医疗机构编码">
+          <el-input v-model="formPerson.medinsId"></el-input>
+        </el-form-item>
+      </el-col>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="dialogVisible = false">取消</el-button>
+      <el-button type="primary" @click="savePerson">保存</el-button>
+    </div>
+  </el-dialog>
 
-                <el-form-item label="行政职务">
-                    <el-select v-model="formPerson.administrativePosition" placeholder="请选择行政职务" filterable>
-                        <el-option v-for="position in administrativePositions" :key="position.value"
-                            :label="position.label" :value="position.value"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="备注">
-                    <el-input v-model="formPerson.note"></el-input>
-                </el-form-item>
-                <el-form-item label="单位编码">
-                    <el-input v-model="formPerson.companyId"></el-input>
-                </el-form-item>
-                <el-form-item label="医疗人员类别">
-                    <el-select v-model="formPerson.medicalPersonnel" placeholder="请选择医疗人员类别" filterable>
-                        <el-option v-for="category in medicalPersonnelCategories" :key="category.value"
-                            :label="category.label" :value="category.value"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="健康状况">
-                    <el-select v-model="formPerson.health" placeholder="请选择健康状况" filterable>
-                        <el-option v-for="status in healthStatuses" :key="status.value" :label="status.label"
-                            :value="status.value"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="劳模标志">
-                    <el-select v-model="formPerson.modelWorker" placeholder="请选择劳模标志" filterable>
-                        <el-option v-for="flag in modelWorkerFlags" :key="flag.value" :label="flag.label"
-                            :value="flag.value"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="干部标志">
-                    <el-select v-model="formPerson.cadre" placeholder="请选择干部标志" filterable>
-                        <el-option v-for="flag in cadreFlags" :key="flag.value" :label="flag.label"
-                            :value="flag.value"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="公务员标志">
-                    <el-select v-model="formPerson.civilServant" placeholder="请选择公务员标志" filterable>
-                        <el-option v-for="flag in civilServantFlags" :key="flag.value" :label="flag.label"
-                            :value="flag.value"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="在编标志">
-                    <el-select v-model="formPerson.authorizedStrength" placeholder="请选择在编标志" filterable>
-                        <el-option v-for="flag in authorizedStrengthFlags" :key="flag.value" :label="flag.label"
-                            :value="flag.value"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="居民类别">
-                    <el-select v-model="formPerson.residentType" placeholder="请选择居民类别" filterable>
-                        <el-option v-for="type in residentTypes" :key="type.value" :label="type.label"
-                            :value="type.value"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="灵活就业标志">
-                    <el-select v-model="formPerson.flexibleEmployment" placeholder="请选择灵活就业标志" filterable>
-                        <el-option v-for="flag in flexibleEmploymentFlags" :key="flag.value" :label="flag.label"
-                            :value="flag.value"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="农民工标志">
-                    <el-select v-model="formPerson.migrantWorker" placeholder="请选择农民工标志" filterable>
-                        <el-option v-for="flag in migrantWorkerFlags" :key="flag.value" :label="flag.label"
-                            :value="flag.value"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="雇主标志">
-                    <el-select v-model="formPerson.employer" placeholder="请选择雇主标志" filterable>
-                        <el-option v-for="flag in employerFlags" :key="flag.value" :label="flag.label"
-                            :value="flag.value"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="军转人员标志">
-                    <el-select v-model="formPerson.militaryPersonnel" placeholder="请选择军转人员标志" filterable>
-                        <el-option v-for="flag in militaryPersonnelFlags" :key="flag.value" :label="flag.label"
-                            :value="flag.value"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="社保卡号">
-                    <el-input v-model="formPerson.socialSecurityId"></el-input>
-                </el-form-item>
-                <el-form-item label="定点医疗机构编码">
-                    <el-input v-model="formPerson.medinsId"></el-input>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">取消</el-button>
-                <el-button type="primary" @click="savePerson">保存</el-button>
-            </div>
-        </el-dialog>
         <el-pagination background layout="total, sizes, prev, pager, next, jumper" :total="total" :page-size="pageSize"
             :current-page.sync="currentPage" @size-change="handleSizeChange" @current-change="handleCurrentChange"
             style="margin-top: 20px;">
@@ -387,15 +363,15 @@ export default {
                 companyId: '',
                 medicalPersonnel: '',
                 health: '',
-                modelWorker: false,
-                cadre: false,
-                civilServant: false,
-                authorizedStrength: false,
+                modelWorker: '',
+                cadre: '',
+                civilServant: '',
+                authorizedStrength: '',
                 residentType: '',
-                flexibleEmployment: false,
-                migrantWorker: false,
-                employer: false,
-                militaryPersonnel: false,
+                flexibleEmployment: '',
+                migrantWorker: '',
+                employer: '',
+                militaryPersonnel: '',
                 socialSecurityId: '',
                 medinsId: ''
             },
@@ -654,15 +630,15 @@ export default {
                     companyId: '1001',
                     medicalPersonnel: '',
                     health: '0',
-                    modelWorker: false,
-                    cadre: false,
-                    civilServant: false,
-                    authorizedStrength: false,
+                    modelWorker: '',
+                    cadre: '',
+                    civilServant: '',
+                    authorizedStrength: '',
                     residentType: '',
-                    flexibleEmployment: false,
-                    migrantWorker: false,
-                    employer: false,
-                    militaryPersonnel: false,
+                    flexibleEmployment: '',
+                    migrantWorker: '',
+                    employer: '',
+                    militaryPersonnel: '',
                     socialSecurityId: '9876543210',
                     medinsId: '2001'
                 },
@@ -691,15 +667,15 @@ export default {
                     companyId: '1002',
                     medicalPersonnel: '',
                     health: '1',
-                    modelWorker: false,
-                    cadre: false,
-                    civilServant: false,
-                    authorizedStrength: false,
+                    modelWorker: '',
+                    cadre: '',
+                    civilServant: '',
+                    authorizedStrength: '',
                     residentType: '',
-                    flexibleEmployment: false,
-                    migrantWorker: false,
-                    employer: false,
-                    militaryPersonnel: false,
+                    flexibleEmployment: '',
+                    migrantWorker: '',
+                    employer: '',
+                    militaryPersonnel: '',
                     socialSecurityId: '8765432109',
                     medinsId: '2002'
                 }
@@ -749,15 +725,15 @@ export default {
                 companyId: '',
                 medicalPersonnel: '',
                 health: '',
-                modelWorker: false,
-                cadre: false,
-                civilServant: false,
-                authorizedStrength: false,
+                modelWorker: '',
+                cadre: '',
+                civilServant: '',
+                authorizedStrength: '',
                 residentType: '',
-                flexibleEmployment: false,
-                migrantWorker: false,
-                employer: false,
-                militaryPersonnel: false,
+                flexibleEmployment: '',
+                migrantWorker: '',
+                employer: '',
+                militaryPersonnel: '',
                 socialSecurityId: '',
                 medinsId: ''
             };
@@ -770,7 +746,7 @@ export default {
         },
         savePerson() {
             if (this.dialogTitle === '新增个人信息') {
-                this.personData.push({ ...this.formPerson });
+                this.add();
             } else {
                 const index = this.personData.findIndex(person => person.peopleId === this.formPerson.peopleId);
                 if (index !== -1) {
@@ -812,10 +788,28 @@ export default {
 
 <style>
 .demo-form-inline .el-form-item {
+    margin-bottom: -10px;
     margin-right: 10px;
 }
 
 .person-info-form {
     margin-top: 20px;
 }
+.custom-dialog .el-dialog__header {
+  padding-bottom: 0;
+}
+
+.custom-dialog .el-dialog__body {
+  padding-top: 10px;
+}
+
+.custom-dialog {
+  top: -10vh;
+}
+
+.person-info-form .el-form-item {
+  margin-bottom: 10px;
+}
+
+
 </style>
