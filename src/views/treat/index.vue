@@ -19,8 +19,11 @@
     <!--新增数据对话框表单-->
     <el-dialog title="新增诊疗项目" :visible.sync="addDialogVisible" width="30%">
       <el-form ref="newClassForm":model="newClass" :rules="rules"  label-width="150px" size="mini">
-        <el-form-item label="项目名称" prop="projectName">
-          <el-input v-model="newClass.projectName"></el-input>
+        <el-form-item label="诊疗项目编码" prop="treId">
+          <el-input v-model="newClass.treId"></el-input>
+        </el-form-item>
+        <el-form-item label="项目名称" prop="name">
+          <el-input v-model="newClass.name"></el-input>
         </el-form-item>
         <el-form-item label="收费类别" prop="expType">
           <el-select
@@ -39,41 +42,41 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="收费项目等级" prop="chargeLevel">
-          <el-select v-model="newClass.chargeLevel" placeholder="请选择">
-            <el-option label="甲类" value="A"></el-option>
-            <el-option label="乙类" value="B"></el-option>
-            <el-option label="丙类" value="C"></el-option>
+        <el-form-item label="收费项目等级" prop="expLevel">
+          <el-select v-model="newClass.expLevel" placeholder="请选择">
+            <el-option label="甲类" value="0"></el-option>
+            <el-option label="乙类" value="1"></el-option>
+            <el-option label="丙类" value="2"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="最高限价" prop="maxPrice">
           <el-input v-model="newClass.maxPrice"></el-input>
         </el-form-item>
-        <el-form-item label="开始日期" prop="startDate">
-          <el-date-picker v-model="newClass.startDate" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
+        <el-form-item label="开始日期" prop="startTime">
+          <el-date-picker v-model="newClass.startTime" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
         </el-form-item>
-        <el-form-item label="终止日期" prop="endDate">
-          <el-date-picker v-model="newClass.endDate" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
+        <el-form-item label="终止日期" prop="endTime">
+          <el-date-picker v-model="newClass.endTime" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
         </el-form-item>
-        <el-form-item label="有效标志" prop="validFlag">
-          <el-select v-model="newClass.validFlag" placeholder="请选择">
-            <el-option label="是" value="yes"></el-option>
-            <el-option label="否" value="no"></el-option>
+        <el-form-item label="有效标志" prop="valid">
+          <el-select v-model="newClass.valid" placeholder="请选择">
+            <el-option label="是" value="true"></el-option>
+            <el-option label="否" value="false"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="医院等级" prop="hospitalLevel">
-          <el-select v-model="newClass.hospitalLevel" placeholder="请选择">
-            <el-option label="一级医院" value="一级医院"></el-option>
-            <el-option label="二级医院" value="二级医院"></el-option>
-            <el-option label="三级医院" value="三级医院"></el-option>
-            <el-option label="社区医院" value="社区医院"></el-option>
-            <el-option label="所有医院" value="所有医院"></el-option>
+        <el-form-item label="医院等级" prop="hosLevel">
+          <el-select v-model="newClass.hosLevel" placeholder="请选择">
+            <el-option value="0" label="一级医院"></el-option>
+            <el-option value="1" label="二级医院"></el-option>
+            <el-option value="2" label="三级医院"></el-option>
+            <el-option value="3" label="社区医院"></el-option>
+            <el-option value="4" label="所有医院"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="是否需要审批标志" prop="approvalFlag">
-          <el-select v-model="newClass.approvalFlag" placeholder="请选择">
-            <el-option label="是" value="yes"></el-option>
-            <el-option label="否" value="no"></el-option>
+        <el-form-item label="是否需要审批标志" prop="approvalMark">
+          <el-select v-model="newClass.approvalMark" placeholder="请选择">
+            <el-option label="是" value="true"></el-option>
+            <el-option label="否" value="false"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -87,22 +90,22 @@
     <!--表格显示诊疗项目信息-->
     <el-table :data="tableData" style="width: 100%" border>
       <el-table-column prop="index" width="100" label="序号" align="center" type="index"></el-table-column>
-      <el-table-column prop="projectCode" width="150" label="诊疗项目编码" align="center"></el-table-column>
-      <el-table-column prop="projectName" width="200" label="项目名称" align="center"></el-table-column>
-      <el-table-column prop="chargeCategory" width="150" label="收费类别" align="center"></el-table-column>
-      <el-table-column prop="chargeLevel" width="150" label="收费项目等级" align="center"></el-table-column>
+      <el-table-column prop="treId" width="150" label="诊疗项目编码" align="center"></el-table-column>
+      <el-table-column prop="name" width="200" label="项目名称" align="center"></el-table-column>
+      <el-table-column prop="expType" width="150" label="收费类别" align="center"></el-table-column>
+      <el-table-column prop="expLevel" width="150" label="收费项目等级" align="center"></el-table-column>
       <el-table-column prop="maxPrice" width="150" label="最高限价" align="center"></el-table-column>
-      <el-table-column prop="startDate" width="150" label="开始日期" align="center"></el-table-column>
-      <el-table-column prop="endDate" width="150" label="终止日期" align="center"></el-table-column>
-      <el-table-column prop="validFlag" width="150" label="有效标志" align="center">
+      <el-table-column prop="startTime" width="150" label="开始日期" align="center"></el-table-column>
+      <el-table-column prop="endTime" width="150" label="终止日期" align="center"></el-table-column>
+      <el-table-column prop="valid" width="150" label="有效标志" align="center">
         <template slot-scope="scope">
-          {{ scope.row.validFlag ? '有效' : '无效' }}
+          {{ scope.row.valid ? '有效' : '无效' }}
         </template>
       </el-table-column>
-      <el-table-column prop="hospitalLevel" width="150" label="医院等级" align="center"></el-table-column>
-      <el-table-column prop="approvalFlag" width="150" label="是否需要审批标志" align="center">
+      <el-table-column prop="hosLevel" width="150" label="医院等级" align="center"></el-table-column>
+      <el-table-column prop="approvalMark" width="150" label="是否需要审批标志" align="center">
         <template slot-scope="scope">
-          {{ scope.row.approvalFlag ? '是' : '否' }}
+          {{ scope.row.approvalMark ? '是' : '否' }}
         </template>
       </el-table-column>
       <el-table-column align="center" width="150" label="操作">
@@ -116,34 +119,34 @@
     <el-dialog :visible.sync="dialogVisible" title="编辑诊疗项目">
       <el-form :model="editForm">
         <el-form-item label="诊疗项目编码">
-          <el-input v-model="editForm.projectCode"></el-input>
+          <el-input v-model="editForm.treId"></el-input>
         </el-form-item>
         <el-form-item label="项目名称">
-          <el-input v-model="editForm.projectName"></el-input>
+          <el-input v-model="editForm.name"></el-input>
         </el-form-item>
         <el-form-item label="收费类别">
-          <el-input v-model="editForm.chargeCategory"></el-input>
+          <el-input v-model="editForm.expType"></el-input>
         </el-form-item>
         <el-form-item label="收费项目等级">
-          <el-input v-model="editForm.chargeLevel"></el-input>
+          <el-input v-model="editForm.expLevel"></el-input>
         </el-form-item>
         <el-form-item label="最高限价">
           <el-input v-model="editForm.maxPrice"></el-input>
         </el-form-item>
         <el-form-item label="开始日期">
-          <el-date-picker v-model="editForm.startDate" type="date"></el-date-picker>
+          <el-date-picker v-model="editForm.startTime" type="date"></el-date-picker>
         </el-form-item>
         <el-form-item label="终止日期">
-          <el-date-picker v-model="editForm.endDate" type="date"></el-date-picker>
+          <el-date-picker v-model="editForm.endTime" type="date"></el-date-picker>
         </el-form-item>
         <el-form-item label="有效标志">
-          <el-switch v-model="editForm.validFlag"></el-switch>
+          <el-switch v-model="editForm.valid"></el-switch>
         </el-form-item>
         <el-form-item label="医院等级">
-          <el-input v-model="editForm.hospitalLevel"></el-input>
+          <el-input v-model="editForm.hosLevel"></el-input>
         </el-form-item>
         <el-form-item label="是否需要审批标志">
-          <el-switch v-model="editForm.approvalFlag"></el-switch>
+          <el-switch v-model="editForm.approvalMark"></el-switch>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -188,26 +191,27 @@ export default {
       token: {token: getToken()},
       
       newClass: {
-        projectName: '',
-        chargeType: '',
-        chargeLevel: '',
+        treId:'',
+        name: '',
+        expType: '',
+        expLevel: '',
         maxPrice: '',
-        startDate: '',
-        endDate: '',
-        validFlag: '',
-        hospitalLevel: '',
-        approvalFlag: ''
+        startTime: '',
+        endTime: '',
+        valid: '',
+        hosLevel: '',
+        approvalMark: ''
       },
       /*rules: {
-        projectName: [{ required: true, message: '请输入项目名称', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入项目名称', trigger: 'blur' }],
         expType: [{ required: true, message: '请输入收费类别', trigger: 'blur' }],
-        chargeLevel: [{ required: true, message: '请选择收费项目等级', trigger: 'change' }],
+        expLevel: [{ required: true, message: '请选择收费项目等级', trigger: 'change' }],
         maxPrice: [{ required: true, message: '请输入最高限价', trigger: 'blur' }],
-        startDate: [{ required: true, message: '请选择开始日期', trigger: 'change' }],
-        endDate: [{ required: true, message: '请选择终止日期', trigger: 'change' }],
-        validFlag: [{ required: true, message: '请选择有效标志', trigger: 'change' }],
-        hospitalLevel: [{ required: true, message: '请选择医院等级', trigger: 'change' }],
-        approvalFlag: [{ required: true, message: '请选择是否需要审批标志', trigger: 'change' }]
+        startTime: [{ required: true, message: '请选择开始日期', trigger: 'change' }],
+        endTime: [{ required: true, message: '请选择终止日期', trigger: 'change' }],
+        valid: [{ required: true, message: '请选择有效标志', trigger: 'change' }],
+        hosLevel: [{ required: true, message: '请选择医院等级', trigger: 'change' }],
+        approvalMark: [{ required: true, message: '请选择是否需要审批标志', trigger: 'change' }]
       },*/
       //远程搜索
       options: [],
@@ -217,32 +221,32 @@ export default {
         // 示例数据
         {
           id: 1,
-          projectCode: '001',
-          projectName: '诊疗项目A',
-          chargeCategory: '类别1',
-          chargeLevel: '等级1',
+          treId: '001',
+          name: '诊疗项目A',
+          expType: '类别1',
+          expLevel: '等级1',
           maxPrice: 100,
-          startDate: '2024-01-01',
-          endDate: '2024-12-31',
-          validFlag: true,
-          hospitalLevel: '三级甲等',
-          approvalFlag: true,
+          startTime: '2024-01-01',
+          endTime: '2024-12-31',
+          valid: true,
+          hosLevel: '三级甲等',
+          approvalMark: true,
         },
         // 更多数据
       ],
       dialogVisible: false,
       editForm: {
         id: '',
-        projectCode: '',
-        projectName: '',
-        chargeCategory: '',
-        chargeLevel: '',
+        treId: '',
+        name: '',
+        expType: '',
+        expLevel: '',
         maxPrice: '',
-        startDate: '',
-        endDate: '',
-        validFlag: false,
-        hospitalLevel: '',
-        approvalFlag: false,
+        startTime: '',
+        endTime: '',
+        valid: true,
+        hosLevel: '',
+        approvalMark: true,
       },
     }
   },
@@ -367,33 +371,28 @@ export default {
         setTimeout(() => {
           this.loading = false;
           this.options = [
-            { value: '西药', label: '西药' },
-            { value: '中成药', label: '中成药' },
-            { value: '中草药', label: '中草药' },
-            { value: '床位费', label: '床位费' },
-            { value: '化验费', label: '化验费' },
-            { value: '诊查费', label: '诊查费' },
-            { value: '检查费', label: '检查费' },
-            { value: '护理费', label: '护理费' },
-            { value: '特检费', label: '特检费' },
-            { value: '输氧费', label: '输氧费' },
-            { value: '治疗费', label: '治疗费' },
-            { value: '输血费', label: '输血费' },
-            { value: '特治费', label: '特治费' },
-            { value: '医疗服务费', label: '医疗服务费' },
-            { value: '手术费', label: '手术费' },
-            { value: '麻药费', label: '麻药费' },
-            { value: '产前检查费', label: '产前检查费' },
-            { value: '材料费', label: '材料费' },
-            { value: '新生儿费', label: '新生儿费' },
-            { value: '内置材料', label: '内置材料' },
-            { value: '其他费', label: '其他费' },
-            { value: '监护床位费', label: '监护床位费' },
-            { value: '非处方药', label: '非处方药' },
-            { value: '处方药', label: '处方药' },
-            { value: '甲类', label: '甲类' },
-            { value: '乙类', label: '乙类' },
-            { value: '丙类', label: '丙类' }
+            { value: '3', label: '床位费' },
+            { value: '4', label: '化验费' },
+            { value: '5', label: '诊查费' },
+            { value: '6', label: '检查费' },
+            { value: '7', label: '护理费' },
+            { value: '8', label: '特检费' },
+            { value: '9', label: '输氧费' },
+            { value: '10', label: '治疗费' },
+            { value: '11', label: '输血费' },
+            { value: '12', label: '特治费' },
+            { value: '13', label: '医疗服务费' },
+            { value: '14', label: '手术费' },
+            { value: '15', label: '麻药费' },
+            { value: '16', label: '产前检查费' },
+            { value: '17', label: '材料费' },
+            { value: '18', label: '新生儿费' },
+            { value: '19', label: '内置材料' },
+            { value: '20', label: '其他费' },
+            { value: '21', label: '监护床位费' },
+            { value: '24', label: '甲类' },
+            { value: '25', label: '乙类' },
+            { value: '26', label: '丙类' }
           ];
         }, 200);
       } else {

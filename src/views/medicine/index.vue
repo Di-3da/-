@@ -107,9 +107,9 @@
     <el-table-column prop="index" width="100" label="序号" align="center" type="index"></el-table-column>
     <el-table-column prop="medicId" width="150" label="药品编码" align="center"></el-table-column>
     <el-table-column prop="name" width="200" label="药品名称" align="center"></el-table-column>
-    <el-table-column prop="chargeCategory" width="150" label="收费类别" align="center"></el-table-column>
+    <el-table-column prop="expType" width="150" label="收费类别" align="center"></el-table-column>
     <el-table-column prop="expLevel" width="150" label="收费项目等级" align="center"></el-table-column>
-    <el-table-column prop="doseUnit" width="150" label="药品剂量单位" align="center"></el-table-column>
+    <el-table-column prop="measurement" width="150" label="药品剂量单位" align="center"></el-table-column>
     <el-table-column prop="maxPrice" width="150" label="最高限价" align="center"></el-table-column>
     <el-table-column prop="approvalMark" width="150" label="是否需要审批标志" align="center">
       <template slot-scope="scope">
@@ -118,7 +118,7 @@
     </el-table-column>
     <el-table-column prop="hosLevel" width="150" label="医院等级" align="center"></el-table-column>
     <el-table-column prop="size" width="150" label="规格" align="center"></el-table-column>
-    <el-table-column prop="drugBrandName" width="200" label="药品商品名" align="center"></el-table-column>
+    <el-table-column prop="tradeName" width="200" label="药品商品名" align="center"></el-table-column>
     <el-table-column prop="startTime" width="150" label="开始日期" align="center"></el-table-column>
     <el-table-column prop="endTime" width="150" label="终止日期" align="center"></el-table-column>
     <el-table-column prop="valid" width="150" label="有效标识" align="center">
@@ -148,13 +148,13 @@
           <el-input v-model="editForm.name"></el-input>
         </el-form-item>
         <el-form-item label="收费类别">
-          <el-input v-model="editForm.chargeCategory"></el-input>
+          <el-input v-model="editForm.expType"></el-input>
         </el-form-item>
         <el-form-item label="收费项目等级">
           <el-input v-model="editForm.expLevel"></el-input>
         </el-form-item>
         <el-form-item label="药品剂量单位">
-          <el-input v-model="editForm.doseUnit"></el-input>
+          <el-input v-model="editForm.measurement"></el-input>
         </el-form-item>
         <el-form-item label="最高限价">
           <el-input v-model="editForm.maxPrice"></el-input>
@@ -169,7 +169,7 @@
           <el-input v-model="editForm.size"></el-input>
         </el-form-item>
         <el-form-item label="药品商品名">
-          <el-input v-model="editForm.drugBrandName"></el-input>
+          <el-input v-model="editForm.tradeName"></el-input>
         </el-form-item>
         <el-form-item label="开始日期">
           <el-date-picker v-model="editForm.startTime" type="date"></el-date-picker>
@@ -254,14 +254,14 @@ export default {
           id: 1,
           medicId: '001',
           name: '药品A',
-          chargeCategory: '类别1',
+          expType: '类别1',
           expLevel: '等级1',
-          doseUnit: 'mg',
+          measurement: 'mg',
           maxPrice: 100,
           approvalMark: true,
           hosLevel: '三级甲等',
           size: '10mg/片',
-          drugBrandName: '品牌A',
+          tradeName: '品牌A',
           startTime: '2024-01-01',
           endTime: '2024-12-31',
           valid: true,
@@ -274,14 +274,14 @@ export default {
         id: '',
         medicId: '',
         name: '',
-        chargeCategory: '',
+        expType: '',
         expLevel: '',
-        doseUnit: '',
+        measurement: '',
         maxPrice: '',
         approvalMark: false,
         hosLevel: '',
         size: '',
-        drugBrandName: '',
+        tradeName: '',
         startTime: '',
         endTime: '',
         valid: false,
@@ -413,25 +413,6 @@ export default {
             { value: '0', label: '西药' },
             { value: '1', label: '中成药' },
             { value: '2', label: '中草药' },
-            { value: '3', label: '床位费' },
-            { value: '4', label: '化验费' },
-            { value: '5', label: '诊查费' },
-            { value: '6', label: '检查费' },
-            { value: '7', label: '护理费' },
-            { value: '8', label: '特检费' },
-            { value: '9', label: '输氧费' },
-            { value: '10', label: '治疗费' },
-            { value: '11', label: '输血费' },
-            { value: '12', label: '特治费' },
-            { value: '13', label: '医疗服务费' },
-            { value: '14', label: '手术费' },
-            { value: '15', label: '麻药费' },
-            { value: '16', label: '产前检查费' },
-            { value: '17', label: '材料费' },
-            { value: '18', label: '新生儿费' },
-            { value: '19', label: '内置材料' },
-            { value: '20', label: '其他费' },
-            { value: '21', label: '监护床位费' },
             { value: '22', label: '非处方药' },
             { value: '23', label: '处方药' },
             { value: '24', label: '甲类' },
