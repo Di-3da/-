@@ -18,139 +18,146 @@
   
     <!--新增数据对话框表单-->
     <el-dialog title="新增医疗服务设施" :visible.sync="addDialogVisible" width="30%">
-      <el-form ref="newFacilityForm":model="newFacility" :rules="rules"  label-width="150px" size="mini">
-        <el-form-item label="医疗机构编码" prop="facilityCode">
-          <el-input v-model="newFacility.facilityCode"></el-input>
-        </el-form-item>
-        <el-form-item label="项目名称" prop="projectName">
-          <el-input v-model="newFacility.projectName"></el-input>
-        </el-form-item>
-        <el-form-item label="收费类别" prop="expType">
-          <el-select
-            v-model="newFacility.expType"
-            filterable
-            remote
-            reserve-keyword
-            placeholder="请输入关键词"
-            :remote-method="remoteMethod"
-            :loading="loading">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="收费项目等级" prop="chargeLevel">
-          <el-select v-model="newFacility.chargeLevel" placeholder="请选择">
-            <el-option label="甲类" value="A"></el-option>
-            <el-option label="乙类" value="B"></el-option>
-            <el-option label="丙类" value="C"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="最高限价" prop="maxPrice">
-          <el-input v-model="newFacility.maxPrice"></el-input>
-        </el-form-item>
-        <el-form-item label="开始日期" prop="startDate">
-          <el-date-picker v-model="newFacility.startDate" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="终止日期" prop="endDate">
-          <el-date-picker v-model="newFacility.endDate" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="有效标志" prop="validFlag">
-          <el-select v-model="newFacility.validFlag" placeholder="请选择">
-            <el-option label="是" value="yes"></el-option>
-            <el-option label="否" value="no"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="医院等级" prop="hospitalLevel">
-          <el-select v-model="newFacility.hospitalLevel" placeholder="请选择">
-            <el-option label="一级医院" value="一级医院"></el-option>
-            <el-option label="二级医院" value="二级医院"></el-option>
-            <el-option label="三级医院" value="三级医院"></el-option>
-            <el-option label="社区医院" value="社区医院"></el-option>
-            <el-option label="所有医院" value="所有医院"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="是否需要审批标志" prop="approvalFlag">
-          <el-select v-model="newFacility.approvalFlag" placeholder="请选择">
-            <el-option label="是" value="yes"></el-option>
-            <el-option label="否" value="no"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="validateForm('newFacilityForm')">保存</el-button>
-          <el-button @click="addDialogVisible = false">取消</el-button>
-        </el-form-item>
-      </el-form>
-    </el-dialog>
+  <el-form ref="newFacilityForm" :model="newFacility" :rules="rules" label-width="150px" size="mini">
+    <el-form-item label="医疗机构编码" prop="institutionId">
+      <el-input v-model="newFacility.institutionId"></el-input>
+    </el-form-item>
+    <el-form-item label="服务机构名称" prop="name">
+      <el-input v-model="newFacility.name"></el-input>
+    </el-form-item>
+    <el-form-item label="医院等级" prop="hosLevel">
+      <el-select v-model="newFacility.hosLevel" placeholder="请选择">
+        <el-option label="一级医院" value="0"></el-option>
+        <el-option label="二级医院" value="1"></el-option>
+        <el-option label="三级医院" value="2"></el-option>
+        <el-option label="社区医院" value="3"></el-option>
+        <el-option label="所有医院" value="4"></el-option>
+      </el-select>
+    </el-form-item>
+    <el-form-item label="医疗机构类别" prop="type">
+      <el-select v-model="newFacility.type" placeholder="请选择">
+        <el-option label="综合性医院" value="0"></el-option>
+        <el-option label="药店" value="1"></el-option>
+        <el-option label="门诊部" value="2"></el-option>
+        <el-option label="诊所" value="3"></el-option>
+        <el-option label="专科病防治院" value="4"></el-option>
+        <el-option label="社区卫生服务机构" value="5"></el-option>
+        <el-option label="卫生院" value="6"></el-option>
+        <el-option label="精神病院" value="7"></el-option>
+      </el-select>
+    </el-form-item>
+    <el-form-item label="邮政编码" prop="postcode">
+      <el-input v-model="newFacility.postcode"></el-input>
+    </el-form-item>
+    <el-form-item label="法定代表人姓名" prop="repName">
+      <el-input v-model="newFacility.repName"></el-input>
+    </el-form-item>
+    <el-form-item label="法人代表移动电话" prop="repPhone">
+      <el-input v-model="newFacility.repPhone"></el-input>
+    </el-form-item>
+    <el-form-item label="联系人姓名" prop="cntName">
+      <el-input v-model="newFacility.cntName"></el-input>
+    </el-form-item>
+    <el-form-item label="联系电话" prop="cntPhone">
+      <el-input v-model="newFacility.cntPhone"></el-input>
+    </el-form-item>
+    <el-form-item label="联系人移动电话" prop="cntcellPhone">
+      <el-input v-model="newFacility.cntcellPhone"></el-input>
+    </el-form-item>
+    <el-form-item label="地址" prop="address">
+      <el-input v-model="newFacility.address"></el-input>
+    </el-form-item>
+    <el-form-item label="备注" prop="note">
+      <el-input v-model="newFacility.note"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="saveNewFacility">保存</el-button>
+      <el-button @click="addDialogVisible = false">取消</el-button>
+    </el-form-item>
+  </el-form>
+</el-dialog>
+
       <!--表格显示诊疗项目信息-->
       <el-table :data="tableData" style="width: 100%" border>
       <el-table-column type="index" width="100" label="序号" align="center"></el-table-column>
-      <el-table-column prop="facilityCode" width="150" label="医疗机构编码" align="center"></el-table-column>
-      <el-table-column prop="projectName" width="200" label="项目名称" align="center"></el-table-column>
-      <el-table-column prop="chargeCategory" width="150" label="收费类别" align="center"></el-table-column>
-      <el-table-column prop="chargeLevel" width="150" label="收费项目等级" align="center"></el-table-column>
-      <el-table-column prop="maxPrice" width="150" label="最高限价" align="center"></el-table-column>
-      <el-table-column prop="startDate" width="150" label="开始日期" align="center"></el-table-column>
-      <el-table-column prop="endDate" width="150" label="终止日期" align="center"></el-table-column>
-      <el-table-column prop="validFlag" width="150" label="有效标志" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.validFlag ? '有效' : '无效' }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="hospitalLevel" width="150" label="医院等级" align="center"></el-table-column>
-      <el-table-column prop="approvalFlag" width="150" label="是否需要审批标志" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.approvalFlag ? '是' : '否' }}
-        </template>
-      </el-table-column>
+      <el-table-column prop="institutionId" width="150" label="医疗机构编码" align="center"></el-table-column>
+      <el-table-column prop="name" width="200" label="服务机构名称" align="center"></el-table-column>
+      <el-table-column prop="hosLevel" width="150" label="医院等级" align="center"></el-table-column>
+      <el-table-column prop="type" width="150" label="医疗机构类别" align="center"></el-table-column>
+      <el-table-column prop="postcode" width="150" label="邮政编码" align="center"></el-table-column>
+      <el-table-column prop="repName" width="200" label="法定代表人姓名" align="center"></el-table-column>
+      <el-table-column prop="repPhone" width="200" label="法人代表移动电话" align="center"></el-table-column>
+      <el-table-column prop="cntName" width="200" label="联系人姓名" align="center"></el-table-column>
+      <el-table-column prop="cntPhone" width="200" label="联系电话" align="center"></el-table-column>
+      <el-table-column prop="cntcellPhone" width="200" label="联系人移动电话" align="center"></el-table-column>
+      <el-table-column prop="address" width="300" label="地址" align="center"></el-table-column>
+      <el-table-column prop="note" width="300" label="备注" align="center"></el-table-column>
       <el-table-column align="center" width="150" label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="openEditDialog(scope.row)">编辑</el-button>
           <el-button type="danger" size="small" @click="deleteById(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
-      </el-table>
+    </el-table>
       <!--编辑数据对话框表单-->
-      <el-dialog :visible.sync="dialogVisible" title="编辑诊疗项目">
-      <el-form :model="editForm">
-        <el-form-item label="医疗机构编码">
-          <el-input v-model="editForm.facilityCode"></el-input>
+      <el-dialog title="编辑医疗服务设施" :visible.sync="editDialogVisible" width="30%">
+      <el-form ref="editFacilityForm" :model="editForm" :rules="rules" label-width="150px" size="mini">
+        <el-form-item label="医疗机构编码" prop="institutionId">
+          <el-input v-model="editForm.institutionId"></el-input>
         </el-form-item>
-        <el-form-item label="项目名称">
-          <el-input v-model="editForm.projectName"></el-input>
+        <el-form-item label="服务机构名称" prop="name">
+          <el-input v-model="editForm.name"></el-input>
         </el-form-item>
-        <el-form-item label="收费类别">
-          <el-input v-model="editForm.chargeCategory"></el-input>
+        <el-form-item label="医院等级" prop="hosLevel">
+          <el-select v-model="editForm.hosLevel" placeholder="请选择">
+            <el-option label="一级医院" value="0"></el-option>
+            <el-option label="二级医院" value="1"></el-option>
+            <el-option label="三级医院" value="2"></el-option>
+            <el-option label="社区医院" value="3"></el-option>
+            <el-option label="所有医院" value="4"></el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="收费项目等级">
-          <el-input v-model="editForm.chargeLevel"></el-input>
+        <el-form-item label="医疗机构类别" prop="type">
+          <el-select v-model="editForm.type" placeholder="请选择">
+            <el-option label="综合性医院" value="0"></el-option>
+            <el-option label="药店" value="1"></el-option>
+            <el-option label="门诊部" value="2"></el-option>
+            <el-option label="诊所" value="3"></el-option>
+            <el-option label="专科病防治院" value="4"></el-option>
+            <el-option label="社区卫生服务机构" value="5"></el-option>
+            <el-option label="卫生院" value="6"></el-option>
+            <el-option label="精神病院" value="7"></el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="最高限价">
-          <el-input v-model="editForm.maxPrice"></el-input>
+        <el-form-item label="邮政编码" prop="postcode">
+          <el-input v-model="editForm.postcode"></el-input>
         </el-form-item>
-        <el-form-item label="开始日期">
-          <el-date-picker v-model="editForm.startDate" type="date"></el-date-picker>
+        <el-form-item label="法定代表人姓名" prop="repName">
+          <el-input v-model="editForm.repName"></el-input>
         </el-form-item>
-        <el-form-item label="终止日期">
-          <el-date-picker v-model="editForm.endDate" type="date"></el-date-picker>
+        <el-form-item label="法人代表移动电话" prop="repPhone">
+          <el-input v-model="editForm.repPhone"></el-input>
         </el-form-item>
-        <el-form-item label="有效标志">
-          <el-switch v-model="editForm.validFlag"></el-switch>
+        <el-form-item label="联系人姓名" prop="cntName">
+          <el-input v-model="editForm.cntName"></el-input>
         </el-form-item>
-        <el-form-item label="医院等级">
-          <el-input v-model="editForm.hospitalLevel"></el-input>
+        <el-form-item label="联系电话" prop="cntPhone">
+          <el-input v-model="editForm.cntPhone"></el-input>
         </el-form-item>
-        <el-form-item label="是否需要审批标志">
-          <el-switch v-model="editForm.approvalFlag"></el-switch>
+        <el-form-item label="联系人移动电话" prop="cntcellPhone">
+          <el-input v-model="editForm.cntcellPhone"></el-input>
         </el-form-item>
+        <el-form-item label="地址" prop="address">
+          <el-input v-model="editForm.address"></el-input>
+        </el-form-item>
+        <el-form-item label="备注" prop="note">
+          <el-input v-model="editForm.note"></el-input>
+        </el-form-item>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="editDialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="saveEditFacility">保存</el-button>
+        </div>
       </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="saveEdit">保存</el-button>
-      </div>
     </el-dialog>
       <!--分页工具条-->
       <el-pagination
@@ -189,16 +196,18 @@
         token: {token: getToken()},
         //新建表单
         newFacility: {
-        facilityCode: '',
-        projectName: '',
-        expType: [],
-        chargeLevel: '',
-        maxPrice: '',
-        startDate: '',
-        endDate: '',
-        validFlag: '',
-        hospitalLevel: '',
-        approvalFlag: '',
+        institutionId: '',
+        name: '',
+        hosLevel: '',
+        type: '',
+        postcode: '',
+        repName: '',
+        repPhone: '',
+        cntName: '',
+        cntPhone: '',
+        cntcellPhone: '',
+        address: '',
+        note: '',
       },
       rules: {
         // 这里可以添加表单验证规则
@@ -209,32 +218,35 @@
         // 示例数据
         {
           id: 1,
-          facilityCode: '999999',
-          projectName: '项目A',
-          chargeCategory: '类别1',
-          chargeLevel: '等级1',
-          maxPrice: 100,
-          startDate: '2024-01-01',
-          endDate: '2024-12-31',
-          validFlag: true,
-          hospitalLevel: '三级甲等',
-          approvalFlag: true,
+          institutionId: '999999',
+          name: '服务机构A',
+          hosLevel: '三级医院',
+          type: '综合性医院',
+          postcode: '123456',
+          repName: '代表人A',
+          repPhone: '12345678901',
+          cntName: '联系人A',
+          cntPhone: '98765432101',
+          cntcellPhone: '87654321012',
+          address: '地址A',
+          note: '备注A',
         },
         // 更多数据
       ],
-      dialogVisible: false,
       editForm: {
         id: '',
-        facilityCode: '',
-        projectName: '',
-        chargeCategory: '',
-        chargeLevel: '',
-        maxPrice: '',
-        startDate: '',
-        endDate: '',
-        validFlag: false,
-        hospitalLevel: '',
-        approvalFlag: false,
+        institutionId: '',
+        name: '',
+        hosLevel: '',
+        type: '',
+        postcode: '',
+        repName: '',
+        repPhone: '',
+        cntName: '',
+        cntPhone: '',
+        cntcellPhone: '',
+        address: '',
+        note: '',
       },
       }
     },
@@ -276,10 +288,30 @@
           }
         });
       },
+      saveNewFacility() {
+      this.$refs.newFacilityForm.validate((valid) => {
+        if (valid) {
+          this.tableData.push({ ...this.newFacility, id: this.tableData.length + 1 });
+          this.addDialogVisible = false;
+          this.$refs.newFacilityForm.resetFields();
+        }
+      });
+    },
       openEditDialog(row) {
         this.editForm = { ...row };
         this.dialogVisible = true;
       },
+      saveEditFacility() {
+      this.$refs.editFacilityForm.validate((valid) => {
+        if (valid) {
+          const index = this.tableData.findIndex(item => item.id === this.editForm.id);
+          if (index !== -1) {
+            this.$set(this.tableData, index, { ...this.editForm });
+          }
+          this.editDialogVisible = false;
+        }
+      });
+    },
       saveEdit() {
         const index = this.tableData.findIndex(item => item.id === this.editForm.id);
         if (index !== -1) {

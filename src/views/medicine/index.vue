@@ -10,14 +10,14 @@
         <el-button type="info" @click="clear">清空</el-button>
       </el-form-item>
     </el-form>
-
+<br>
     <!--按钮-->
     <el-row>
       <el-button type="primary" size="medium" @click="addDialogVisible = true;">+ 新增药品</el-button>
     </el-row>
 <br>
     <!--新增数据对话框表单-->
-    <el-dialog title="新增药品项目" :visible.sync="addDialogVisible" width="30%">
+    <el-dialog title="新增药品项目" :visible.sync="addDialogVisible" width="50%">
       <el-form ref="newDrugForm":model="medicine" :rules="rules"  label-width="150px" size="mini">
         <el-form-item label="药品编码" prop="medicId">
           <el-input v-model="medicine.medicId"></el-input>
@@ -133,15 +133,15 @@
       </template>
     </el-table-column>
     <el-table-column width="150" align="center" label="操作">
-      <template slot-scope="scope">
+      <template slot-scope="scope" fixed="right">
         <el-button type="primary" size="small" @click="openEditDialog(scope.row)">编辑</el-button>
         <el-button type="danger" size="small" @click="deleteById(scope.row.id)">删除</el-button>
       </template>
     </el-table-column>
     </el-table>
     <!--编辑数据对话框表单-->
-    <el-dialog :visible.sync="dialogVisible" title="编辑药品">
-      <el-form :model="editForm">
+    <el-dialog :visible.sync="dialogVisible" title="编辑药品" width="50%" >
+      <el-form :model="editForm" label-width="150px">
         <el-form-item label="药品编码">
           <el-input v-model="editForm.medicId"></el-input>
         </el-form-item>
@@ -424,9 +424,6 @@ export default {
     },
       update(id) {
       // 编辑操作
-    },
-    deleteById(id) {
-      // 删除操作
     },
 
    
