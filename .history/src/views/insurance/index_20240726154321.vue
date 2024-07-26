@@ -548,7 +548,7 @@ import { queryService } from '@/api/service';
       // 模拟审批过程
       prescriptions = prescriptionDetails;
       visit = {
-        presonId;
+        
       }
       
     },

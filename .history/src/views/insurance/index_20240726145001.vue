@@ -228,6 +228,7 @@
                     <el-table :data="categoryItems" border>
                         <el-table-column prop="code" label="编码"></el-table-column>
                         <el-table-column prop="name" label="名称"></el-table-column>
+                        <el-table-column prop="price" label="单价"></el-table-column>
                         <el-table-column label="操作">
                             <template slot-scope="scope">
                                 <el-button @click="selectCategoryItem(scope.row)">选择</el-button>
@@ -248,7 +249,7 @@
                     </el-col>
                     <el-col :span="8">
                         <el-form-item label="单价" label-width="80px">
-                            <el-input v-model="newPrescription.price" type="number" @input="calculateAmount"></el-input>
+                            <el-input v-model="newPrescription.price" type="number" disabled @input="calculateAmount"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -319,10 +320,7 @@
 
     import { page, add, update, selectById, deleteById } from "@/api/insurance.js";
     import { query } from "@/api/people.js";
-    import { queryMedicine } from "@/api/medicine.js"
     import { findAll } from "@/api/insurance.js";
-import { queryTreat } from '@/api/treat';
-import { queryService } from '@/api/service';
   export default {
   data() {
     return {
@@ -451,6 +449,7 @@ import { queryService } from '@/api/service';
     },
     selectPerson(person) {
       this.selectedPerson = person;
+      this.selectedPersonId = person.id; // 将选中的证件编号赋值给新的变量
     },
     nextStep1() {
       this.step1Visible = false;
@@ -476,16 +475,34 @@ import { queryService } from '@/api/service';
     searchCategoryItems() {
       // 模拟根据类别、编码和名称进行查询的逻辑
       if (this.newPrescription.category === '药品') {
-        queryMedicine(this.personId, this.personName).then((res) => {
-            this.categoryItems = res.data.data;
+        this.categoryItems = [
+          { code: '001', name: '药品A', price: 10 },
+          { code: '002', name: '药品B', price: 20 }
+        ].filter(item => {
+          return (
+            item.code.includes(this.searchCode) && 
+            item.name.includes(this.searchName)
+          );
         });
       } else if (this.newPrescription.category === '诊疗项目') {
-        queryTreat(this.personId, this.personName).then((res) => {
-            this.categoryItems = res.data.data;
+        this.categoryItems = [
+          { code: '101', name: '诊疗项目A', price: 100 },
+          { code: '102', name: '诊疗项目B', price: 200 }
+        ].filter(item => {
+          return (
+            item.code.includes(this.searchCode) && 
+            item.name.includes(this.searchName)
+          );
         });
       } else if (this.newPrescription.category === '服务设施') {
-        queryService(this.personId, this.personName).then((res) => {
-            this.categoryItems = res.data.data;
+        this.categoryItems = [
+          { code: '201', name: '服务设施A', price: 1000 },
+          { code: '202', name: '服务设施B', price: 2000 }
+        ].filter(item => {
+          return (
+            item.code.includes(this.searchCode) && 
+            item.name.includes(this.searchName)
+          );
         });
       }
       this.categoryTableVisible = true;
@@ -546,11 +563,11 @@ import { queryService } from '@/api/service';
       this.step4Visible = true;
   
       // 模拟审批过程
-      prescriptions = prescriptionDetails;
-      visit = {
-        presonId;
-      }
-      
+      setTimeout(() => {
+        this.step4Visible = false;
+        this.approved = true; // 模拟审批通过
+        this.step5Visible = true;
+      }, 2000);
     },
     closePrintDialog() {
       this.printDialogVisible = false;

@@ -2,51 +2,44 @@ import request from '@/utils/request'
 
 export function findAll() {
     return request({
-        url: '/medicine',
+        url: '/service',
         method: 'get'
     })
 }
 
-export function add(medicine) {
+export function add(service) {
     return request({
-        url: '/medicine',
+        url: '/service',
         method: 'post',
-        data: medicine
+        data: service
     })
 }
 
-export function update(medicine) {
+export function update(service) {
     return request({
-        url: '/medicine',
+        url: '/service',
         method: 'put',
-        data: medicine
+        data: service
     })
 }
 
 export function deleteById(id) {
     return request({
-      url: '/medicine/' + id,
+      url: '/service/' + id,
       method: 'delete'
     })
   }
   
   export function selectById(id) {
     return request({
-      url: '/medicine/' + id,
+      url: '/service/' + id,
       method: 'get'
     })
   }
   
   export function page(name,page,pageSize) {
     return request({
-      url: '/medicine/page?name='+name+'&page='+page+'&pageSize='+pageSize,
-      method: 'get'
-    })
-  }
-
-  export function queryMedicine(name, medicId) {
-    return request({
-      url: '/medicine/query?name='+name+'&medicId='+medicId,
+      url: '/service/page?name='+name+'&page='+page+'&pageSize='+pageSize,
       method: 'get'
     })
   }

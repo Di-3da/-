@@ -134,7 +134,7 @@
     <el-table-column width="150" align="center" label="操作">
       <template slot-scope="scope">
         <el-button type="primary" size="small" @click="openEditDialog(scope.row)">编辑</el-button>
-        <el-button type="danger" size="small" @click="alert('clicked!');deleteById(scope.row.id)">删除</el-button>
+        <el-button type="danger" size="small" @click="deleteById(scope.row.id)">删除</el-button>
       </template>
     </el-table-column>
     </el-table>
@@ -250,23 +250,23 @@ export default {
 
       tableData: [
         // 示例数据
-        // {
-        //   id: 1,
-        //   medicId: '001',
-        //   name: '药品A',
-        //   expType: '类别1',
-        //   expLevel: '等级1',
-        //   measurement: 'mg',
-        //   maxPrice: 100,
-        //   approvalMark: true,
-        //   hosLevel: '三级甲等',
-        //   size: '10mg/片',
-        //   tradeName: '品牌A',
-        //   startTime: '2024-01-01',
-        //   endTime: '2024-12-31',
-        //   valid: true,
-        //   specialMark: false,
-        // },
+        {
+          id: 1,
+          medicId: '001',
+          name: '药品A',
+          expType: '类别1',
+          expLevel: '等级1',
+          measurement: 'mg',
+          maxPrice: 100,
+          approvalMark: true,
+          hosLevel: '三级甲等',
+          size: '10mg/片',
+          tradeName: '品牌A',
+          startTime: '2024-01-01',
+          endTime: '2024-12-31',
+          valid: true,
+          specialMark: false,
+        },
         // 更多数据
       ],
       dialogVisible: false,
@@ -361,7 +361,6 @@ export default {
       });
     },
     deleteById(id) {
-      alert(id)
       this.$confirm('此操作将永久删除该药品, 是否继续?', '警告', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

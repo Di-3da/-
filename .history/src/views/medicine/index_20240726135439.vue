@@ -134,7 +134,7 @@
     <el-table-column width="150" align="center" label="操作">
       <template slot-scope="scope">
         <el-button type="primary" size="small" @click="openEditDialog(scope.row)">编辑</el-button>
-        <el-button type="danger" size="small" @click="alert('clicked!');deleteById(scope.row.id)">删除</el-button>
+        <el-button type="danger" size="small" @click="deleteById(scope.row.id)">删除</el-button>
       </template>
     </el-table-column>
     </el-table>

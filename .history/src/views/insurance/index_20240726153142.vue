@@ -546,11 +546,11 @@ import { queryService } from '@/api/service';
       this.step4Visible = true;
   
       // 模拟审批过程
-      prescriptions = prescriptionDetails;
-      visit = {
-        presonId;
-      }
-      
+      setTimeout(() => {
+        this.step4Visible = false;
+        this.approved = true; // 模拟审批通过
+        this.step5Visible = true;
+      }, 2000);
     },
     closePrintDialog() {
       this.printDialogVisible = false;

@@ -39,12 +39,12 @@
       <span>{{ getLabelByValue(scope.row.retirement, retirementStatuses) }}</span>
     </template>
   </el-table-column>
-  <el-table-column prop="residentType" label="户口性质" width="120">
+  <el-table-column prop="residenceType" label="户口性质" width="120">
     <template slot-scope="scope">
-      <span>{{ getLabelByValue(scope.row.residentType, residentTypes) }}</span>
+      <span>{{ getLabelByValue(scope.row.residenceType, residenceTypes) }}</span>
     </template>
   </el-table-column>
-  <el-table-column prop="residenceAddress" label="户口所在地" width="150"></el-table-column>
+  <el-table-column prop="residenceAdress" label="户口所在地" width="150"></el-table-column>
   <el-table-column prop="education" label="文化程度" width="120">
     <template slot-scope="scope">
       <span>{{ getLabelByValue(scope.row.education, educationLevels) }}</span>
@@ -196,12 +196,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="户口性质">
-          <el-select v-model="formPerson.residentType" placeholder="请选择户口性质">
-            <el-option v-for="type in residentTypes" :key="type.value" :label="type.label" :value="type.value"></el-option>
+          <el-select v-model="formPerson.residenceType" placeholder="请选择户口性质">
+            <el-option v-for="type in residenceTypes" :key="type.value" :label="type.label" :value="type.value"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="户口所在地">
-          <el-input v-model="formPerson.residenceAddress"></el-input>
+          <el-input v-model="formPerson.residenceAdress"></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="8">
@@ -354,8 +354,8 @@ export default {
                 workDate: '',
                 retirementDate: '',
                 retirement: '',
-                residentType: '',
-                residenceAddress: '',
+                residenceType: '',
+                residenceAdress: '',
                 education: '',
                 politicalStatus: '',
                 identity: '',
@@ -453,7 +453,7 @@ export default {
                 { value: '5', label: '退休状态_审核期' },
                 { value: '6', label: '退休状态_未退休' }
             ],
-            residentTypes: [
+            residenceTypes: [
                 { value: '0', label: '城镇' },
                 { value: '1', label: '农村' }
             ],
@@ -641,8 +641,8 @@ export default {
                 workDate: '',
                 retirementDate: '',
                 retirement: '',
-                residentType: '',
-                residenceAddress: '',
+                residenceType: '',
+                residenceAdress: '',
                 education: '',
                 politicalStatus: '',
                 identity: '',
