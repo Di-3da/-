@@ -389,10 +389,7 @@ export default {
             { value: '18', label: '新生儿费' },
             { value: '19', label: '内置材料' },
             { value: '20', label: '其他费' },
-            { value: '21', label: '监护床位费' },
-            { value: '24', label: '甲类' },
-            { value: '25', label: '乙类' },
-            { value: '26', label: '丙类' }
+            { value: '21', label: '监护床位费' }
           ];
         }, 200);
       } else {

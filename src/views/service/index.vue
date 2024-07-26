@@ -18,12 +18,12 @@
   
     <!--新增数据对话框表单-->
     <el-dialog title="新增医疗服务设施" :visible.sync="addDialogVisible" width="30%">
-      <el-form ref="newFacilityForm":model="newFacility" :rules="rules"  label-width="150px" size="mini">
-        <el-form-item label="医疗服务设施编码" prop="facilityCode">
-          <el-input v-model="newFacility.facilityCode"></el-input>
+      <el-form ref="newFacilityForm":model="newFacility"   label-width="150px" size="mini">
+        <el-form-item label="医疗服务设施编码" prop="serId">
+          <el-input v-model="newFacility.serId"></el-input>
         </el-form-item>
-        <el-form-item label="服务设施名称" prop="facilityName">
-          <el-input v-model="newFacility.facilityName"></el-input>
+        <el-form-item label="服务设施名称" prop="name">
+          <el-input v-model="newFacility.name"></el-input>
         </el-form-item>
         <el-form-item label="收费类别" prop="expType">
           <el-select
@@ -42,16 +42,16 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="开始日期" prop="startDate">
-          <el-date-picker v-model="newFacility.startDate" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
+        <el-form-item label="开始日期" prop="startTime">
+          <el-date-picker v-model="newFacility.startTime" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
         </el-form-item>
-        <el-form-item label="终止日期" prop="endDate">
-          <el-date-picker v-model="newFacility.endDate" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
+        <el-form-item label="终止日期" prop="endTime">
+          <el-date-picker v-model="newFacility.endTime" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
         </el-form-item>
-        <el-form-item label="有效标志" prop="validFlag">
-          <el-select v-model="newFacility.validFlag" placeholder="请选择">
-            <el-option label="是" value="yes"></el-option>
-            <el-option label="否" value="no"></el-option>
+        <el-form-item label="有效标志" prop="valid">
+          <el-select v-model="newFacility.valid" placeholder="请选择">
+            <el-option label="是" value="true"></el-option>
+            <el-option label="否" value="false"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -64,14 +64,14 @@
       <!--表格显示诊疗项目信息-->
       <el-table :data="tableData" style="width: 100%" border>
       <el-table-column type="index" width="100" label="序号" align="center"></el-table-column>
-      <el-table-column prop="facilityCode" width="150" label="医疗服务设施编码" align="center"></el-table-column>
-      <el-table-column prop="facilityName" width="200" label="服务设施名称" align="center"></el-table-column>
-      <el-table-column prop="chargeCategory" width="150" label="收费类别" align="center"></el-table-column>
-      <el-table-column prop="startDate" width="150" label="开始日期" align="center"></el-table-column>
-      <el-table-column prop="endDate" width="150" label="终止日期" align="center"></el-table-column>
-      <el-table-column prop="validFlag" width="150" label="有效标志" align="center">
+      <el-table-column prop="serId" width="150" label="医疗服务设施编码" align="center"></el-table-column>
+      <el-table-column prop="name" width="200" label="服务设施名称" align="center"></el-table-column>
+      <el-table-column prop="type" width="150" label="收费类别" align="center"></el-table-column>
+      <el-table-column prop="startTime" width="150" label="开始日期" align="center"></el-table-column>
+      <el-table-column prop="endTime" width="150" label="终止日期" align="center"></el-table-column>
+      <el-table-column prop="valid" width="150" label="有效标志" align="center">
         <template slot-scope="scope">
-          {{ scope.row.validFlag ? '有效' : '无效' }}
+          {{ scope.row.valid ? '有效' : '无效' }}
         </template>
       </el-table-column>
       <el-table-column align="center" width="150" label="操作">
@@ -85,22 +85,22 @@
       <el-dialog :visible.sync="dialogVisible" title="编辑医疗服务设施">
       <el-form :model="editForm">
         <el-form-item label="医疗服务设施编码">
-          <el-input v-model="editForm.facilityCode"></el-input>
+          <el-input v-model="editForm.serId"></el-input>
         </el-form-item>
         <el-form-item label="服务设施名称">
-          <el-input v-model="editForm.facilityName"></el-input>
+          <el-input v-model="editForm.name"></el-input>
         </el-form-item>
         <el-form-item label="收费类别">
           <el-input v-model="editForm.chargeCategory"></el-input>
         </el-form-item>
         <el-form-item label="开始日期">
-          <el-date-picker v-model="editForm.startDate" type="date"></el-date-picker>
+          <el-date-picker v-model="editForm.startTime" type="date"></el-date-picker>
         </el-form-item>
         <el-form-item label="终止日期">
-          <el-date-picker v-model="editForm.endDate" type="date"></el-date-picker>
+          <el-date-picker v-model="editForm.endTime" type="date"></el-date-picker>
         </el-form-item>
         <el-form-item label="有效标志">
-          <el-switch v-model="editForm.validFlag"></el-switch>
+          <el-switch v-model="editForm.valid"></el-switch>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -145,20 +145,20 @@
         token: {token: getToken()},
         //新建表单
         newFacility: {
-        facilityCode: '',
-        facilityName: '',
+        serId: '',
+        name: '',
         chargeType: '',
-        startDate: '',
-        endDate: '',
-        validFlag: ''
+        startTime: '',
+        endTime: '',
+        valid: ''
         },
-        rules: {
-        facilityCode: [{ required: true, message: '请输入医疗服务设施编码', trigger: 'blur' }],
-        facilityName: [{ required: true, message: '请输入服务设施名称', trigger: 'blur' }],
-        startDate: [{ required: true, message: '请选择开始日期', trigger: 'change' }],
-        endDate: [{ required: true, message: '请选择终止日期', trigger: 'change' }],
-        validFlag: [{ required: true, message: '请选择有效标志', trigger: 'change' }]
-        },
+        /*rules: {
+        id: [{ required: true, message: '请输入医疗服务设施编码', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入服务设施名称', trigger: 'blur' }],
+        startTime: [{ required: true, message: '请选择开始日期', trigger: 'change' }],
+        endTime: [{ required: true, message: '请选择终止日期', trigger: 'change' }],
+        valid: [{ required: true, message: '请选择有效标志', trigger: 'change' }]
+        },*/
         //远程搜索
         options: [],
         loading: false,
@@ -166,24 +166,24 @@
         // 示例数据
         {
           id: 1,
-          facilityCode: '001',
-          facilityName: '医疗服务设施A',
+          serId: '001',
+          name: '医疗服务设施A',
           chargeCategory: '类别1',
-          startDate: '2024-01-01',
-          endDate: '2024-12-31',
-          validFlag: true,
+          startTime: '2024-01-01',
+          endTime: '2024-12-31',
+          valid: true,
         },
         // 更多数据
       ],
       dialogVisible: false,
       editForm: {
         id: '',
-        facilityCode: '',
-        facilityName: '',
+        serId: '',
+        name: '',
         chargeCategory: '',
-        startDate: '',
-        endDate: '',
-        validFlag: false,
+        startTime: '',
+        endTime: '',
+        valid: false,
       },
       }
     },
@@ -208,23 +208,23 @@
         });
       },
       validateForm(formName) {
-        this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate((valid) => {
           // 处理保存逻辑
           this.addNewClass();
-        });
-      },
-      addNewClass() {
-        add(this.newClass).then((response) => {
-          if (response.data.code === 1) {
-            this.$message({ type: 'success', message: '新增药品成功!' });
-            this.addDialogVisible = false;
-            this.newClass = {}; // 清空表单
-            this.page(); // 重新加载数据
-          } else {
-            this.$message.error(response.data.msg);
-          }
-        });
-      },
+      });
+    },
+    addNewClass() {
+      add(this.newFacility).then((response) => {
+        if (response.data.code === 1) {
+          this.$message({ type: 'success', message: '新增服务成功!' });
+          this.addDialogVisible = false;
+          this.newFacility = {}; // 清空表单
+          this.page(); // 重新加载数据
+        } else {
+          this.$message.error(response.data.msg);
+        }
+      });
+    },
       openEditDialog(row) {
         this.editForm = { ...row };
         this.dialogVisible = true;
@@ -309,33 +309,9 @@
         setTimeout(() => {
           this.loading = false;
           this.options = [
-            { value: '西药', label: '西药' },
-            { value: '中成药', label: '中成药' },
-            { value: '中草药', label: '中草药' },
-            { value: '床位费', label: '床位费' },
-            { value: '化验费', label: '化验费' },
-            { value: '诊查费', label: '诊查费' },
-            { value: '检查费', label: '检查费' },
-            { value: '护理费', label: '护理费' },
-            { value: '特检费', label: '特检费' },
-            { value: '输氧费', label: '输氧费' },
-            { value: '治疗费', label: '治疗费' },
-            { value: '输血费', label: '输血费' },
-            { value: '特治费', label: '特治费' },
-            { value: '医疗服务费', label: '医疗服务费' },
-            { value: '手术费', label: '手术费' },
-            { value: '麻药费', label: '麻药费' },
-            { value: '产前检查费', label: '产前检查费' },
-            { value: '材料费', label: '材料费' },
-            { value: '新生儿费', label: '新生儿费' },
-            { value: '内置材料', label: '内置材料' },
-            { value: '其他费', label: '其他费' },
-            { value: '监护床位费', label: '监护床位费' },
-            { value: '非处方药', label: '非处方药' },
-            { value: '处方药', label: '处方药' },
-            { value: '甲类', label: '甲类' },
-            { value: '乙类', label: '乙类' },
-            { value: '丙类', label: '丙类' }
+            { value: '24', label: '甲类' },
+            { value: '25', label: '乙类' },
+            { value: '26', label: '丙类' }
           ];
         }, 200);
       } else {

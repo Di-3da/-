@@ -414,10 +414,7 @@ export default {
             { value: '1', label: '中成药' },
             { value: '2', label: '中草药' },
             { value: '22', label: '非处方药' },
-            { value: '23', label: '处方药' },
-            { value: '24', label: '甲类' },
-            { value: '25', label: '乙类' },
-            { value: '26', label: '丙类' }
+            { value: '23', label: '处方药' }
           ];
         }, 200);
       } else {
