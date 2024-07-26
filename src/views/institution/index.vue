@@ -18,7 +18,7 @@
   
     <!--新增数据对话框表单-->
     <el-dialog title="新增医疗服务设施" :visible.sync="addDialogVisible" width="30%">
-      <el-form :model="newFacility" :rules="rules" ref="newFacilityForm" label-width="150px" size="mini">
+      <el-form ref="newFacilityForm":model="newFacility" :rules="rules"  label-width="150px" size="mini">
         <el-form-item label="医疗机构编码" prop="facilityCode">
           <el-input v-model="newFacility.facilityCode"></el-input>
         </el-form-item>
@@ -28,7 +28,6 @@
         <el-form-item label="收费类别" prop="expType">
           <el-select
             v-model="newFacility.expType"
-            multiple
             filterable
             remote
             reserve-keyword
@@ -261,13 +260,8 @@
       },
       validateForm(formName) {
       this.$refs[formName].validate((valid) => {
-        if (valid) {
-          // 处理保存逻辑
-          this.addDialogVisible = false;
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
+        // 处理保存逻辑
+        this.addNewClass();
       });
     },
       addNewClass() {

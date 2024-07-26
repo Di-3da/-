@@ -18,7 +18,7 @@
 
   <!--新增数据对话框表单-->
   <el-dialog title="新增疾病信息" :visible.sync="addDialogVisible" width="30%">
-      <el-form :model="newDisease" :rules="rules" ref="newDiseaseForm" label-width="150px" size="mini">
+      <el-form ref="newDiseaseForm":model="newDisease" :rules="rules"  label-width="150px" size="mini">
         <el-form-item label="疾病编码" prop="diseaseCode">
           <el-input v-model="newDisease.diseaseCode"></el-input>
         </el-form-item>
@@ -197,19 +197,8 @@ export default {
     },
     validateForm(formName) {
       this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$message({
-            message: '保存成功',
-            type: 'success'
-          });
-          this.addDialogVisible = false;
-        } else {
-          this.$message({
-            message: '请完整填写表单',
-            type: 'warning'
-          });
-          return false;
-        }
+        // 处理保存逻辑
+        this.addNewClass();
       });
     },
     addNewClass() {

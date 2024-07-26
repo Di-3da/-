@@ -19,16 +19,15 @@
     <!--新增数据对话框表单-->
     <el-dialog title="新增药品项目" :visible.sync="addDialogVisible" width="30%">
       <el-form ref="newDrugForm":model="medicine" :rules="rules"  label-width="150px" size="mini">
-        <el-form-item label="药品编码" prop="drugCode">
-          <el-input v-model="medicine.drugCode"></el-input>
+        <el-form-item label="药品编码" prop="medicId">
+          <el-input v-model="medicine.medicId"></el-input>
         </el-form-item>
-        <el-form-item label="药品名称" prop="drugName">
-          <el-input v-model="medicine.drugName"></el-input>
+        <el-form-item label="药品名称" prop="name">
+          <el-input v-model="medicine.name"></el-input>
         </el-form-item>
         <el-form-item label="收费类别" prop="expType">
           <el-select
             v-model="medicine.expType"
-            multiple
             filterable
             remote
             reserve-keyword
@@ -43,56 +42,56 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="收费项目等级" prop="chargeLevel">
-          <el-select v-model="medicine.chargeLevel" placeholder="请选择">
-            <el-option label="甲类" value="A"></el-option>
-            <el-option label="乙类" value="B"></el-option>
-            <el-option label="丙类" value="C"></el-option>
+        <el-form-item label="收费项目等级" prop="expLevel">
+          <el-select v-model="medicine.expLevel" placeholder="请选择">
+            <el-option label="甲类" value="0"></el-option>
+            <el-option label="乙类" value="1"></el-option>
+            <el-option label="丙类" value="2"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="药品剂量单位" prop="dosageUnit">
-          <el-input v-model="medicine.dosageUnit"></el-input>
+        <el-form-item label="药品剂量单位" prop="measurement">
+          <el-input v-model="medicine.measurement"></el-input>
         </el-form-item>
         <el-form-item label="最高限价" prop="maxPrice">
           <el-input v-model="medicine.maxPrice"></el-input>
         </el-form-item>
-        <el-form-item label="是否需要审批标志" prop="approvalFlag">
-          <el-select v-model="medicine.approvalFlag" placeholder="请选择">
-            <el-option label="是" value="yes"></el-option>
-            <el-option label="否" value="no"></el-option>
+        <el-form-item label="是否需要审批标志" prop="approvalMark">
+          <el-select v-model="medicine.approvalMark" placeholder="请选择">
+            <el-option label="是" value="true"></el-option>
+            <el-option label="否" value="false"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="医院等级" prop="hospitalLevel">
-          <el-select v-model="medicine.hospitalLevel" placeholder="请选择">
-            <el-option label="一级医院" value="一级医院"></el-option>
-            <el-option label="二级医院" value="二级医院"></el-option>
-            <el-option label="三级医院" value="三级医院"></el-option>
-            <el-option label="社区医院" value="社区医院"></el-option>
-            <el-option label="所有医院" value="所有医院"></el-option>
+        <el-form-item label="医院等级" prop="hosLevel">
+          <el-select v-model="medicine.hosLevel" placeholder="请选择">
+            <el-option label="一级医院" value="0"></el-option>
+            <el-option label="二级医院" value="1"></el-option>
+            <el-option label="三级医院" value="2"></el-option>
+            <el-option label="社区医院" value="3"></el-option>
+            <el-option label="所有医院" value="4"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="规格" prop="specification">
-          <el-input v-model="medicine.specification"></el-input>
+        <el-form-item label="规格" prop="size">
+          <el-input v-model="medicine.size"></el-input>
         </el-form-item>
-        <el-form-item label="药品商品名" prop="drugTradeName">
-          <el-input v-model="medicine.drugTradeName"></el-input>
+        <el-form-item label="药品商品名" prop="tradeName">
+          <el-input v-model="medicine.tradeName"></el-input>
         </el-form-item>
-        <el-form-item label="开始日期" prop="startDate">
-          <el-date-picker v-model="medicine.startDate" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
+        <el-form-item label="开始日期" prop="startTime">
+          <el-date-picker v-model="medicine.startTime" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
         </el-form-item>
-        <el-form-item label="终止日期" prop="endDate">
-          <el-date-picker v-model="medicine.endDate" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
+        <el-form-item label="终止日期" prop="endTime">
+          <el-date-picker v-model="medicine.endTime" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
         </el-form-item>
-        <el-form-item label="有效标志" prop="validFlag">
-          <el-select v-model="medicine.validFlag" placeholder="请选择">
-            <el-option label="是" value="yes"></el-option>
-            <el-option label="否" value="no"></el-option>
+        <el-form-item label="有效标志" prop="valid">
+          <el-select v-model="medicine.valid" placeholder="请选择">
+            <el-option label="是" value="true"></el-option>
+            <el-option label="否" value="false"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="特检特制标志" prop="specialFlag">
-          <el-select v-model="medicine.specialFlag" placeholder="请选择">
-            <el-option label="是" value="yes"></el-option>
-            <el-option label="否" value="no"></el-option>
+        <el-form-item label="特检特制标志" prop="specialMark">
+          <el-select v-model="medicine.specialMark" placeholder="请选择">
+            <el-option label="是" value="true"></el-option>
+            <el-option label="否" value="false"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -106,30 +105,30 @@
     <!--表格显示药品信息-->
     <el-table :data="tableData" style="width: 100%" border>
     <el-table-column prop="index" width="100" label="序号" align="center" type="index"></el-table-column>
-    <el-table-column prop="drugCode" width="150" label="药品编码" align="center"></el-table-column>
-    <el-table-column prop="drugName" width="200" label="药品名称" align="center"></el-table-column>
+    <el-table-column prop="medicId" width="150" label="药品编码" align="center"></el-table-column>
+    <el-table-column prop="name" width="200" label="药品名称" align="center"></el-table-column>
     <el-table-column prop="chargeCategory" width="150" label="收费类别" align="center"></el-table-column>
-    <el-table-column prop="chargeLevel" width="150" label="收费项目等级" align="center"></el-table-column>
+    <el-table-column prop="expLevel" width="150" label="收费项目等级" align="center"></el-table-column>
     <el-table-column prop="doseUnit" width="150" label="药品剂量单位" align="center"></el-table-column>
     <el-table-column prop="maxPrice" width="150" label="最高限价" align="center"></el-table-column>
-    <el-table-column prop="approvalFlag" width="150" label="是否需要审批标志" align="center">
+    <el-table-column prop="approvalMark" width="150" label="是否需要审批标志" align="center">
       <template slot-scope="scope">
-        {{ scope.row.approvalFlag ? '是' : '否' }}
+        {{ scope.row.approvalMark ? '是' : '否' }}
       </template>
     </el-table-column>
-    <el-table-column prop="hospitalLevel" width="150" label="医院等级" align="center"></el-table-column>
-    <el-table-column prop="specification" width="150" label="规格" align="center"></el-table-column>
+    <el-table-column prop="hosLevel" width="150" label="医院等级" align="center"></el-table-column>
+    <el-table-column prop="size" width="150" label="规格" align="center"></el-table-column>
     <el-table-column prop="drugBrandName" width="200" label="药品商品名" align="center"></el-table-column>
-    <el-table-column prop="startDate" width="150" label="开始日期" align="center"></el-table-column>
-    <el-table-column prop="endDate" width="150" label="终止日期" align="center"></el-table-column>
-    <el-table-column prop="validFlag" width="150" label="有效标识" align="center">
+    <el-table-column prop="startTime" width="150" label="开始日期" align="center"></el-table-column>
+    <el-table-column prop="endTime" width="150" label="终止日期" align="center"></el-table-column>
+    <el-table-column prop="valid" width="150" label="有效标识" align="center">
       <template slot-scope="scope">
-        {{ scope.row.validFlag ? '有效' : '无效' }}
+        {{ scope.row.valid ? '有效' : '无效' }}
       </template>
     </el-table-column>
-    <el-table-column prop="specialFlag" width="150" label="特检特制标志" align="center">
+    <el-table-column prop="specialMark" width="150" label="特检特制标志" align="center">
       <template slot-scope="scope">
-        {{ scope.row.specialFlag ? '是' : '否' }}
+        {{ scope.row.specialMark ? '是' : '否' }}
       </template>
     </el-table-column>
     <el-table-column width="150" align="center" label="操作">
@@ -143,16 +142,16 @@
     <el-dialog :visible.sync="dialogVisible" title="编辑药品">
       <el-form :model="editForm">
         <el-form-item label="药品编码">
-          <el-input v-model="editForm.drugCode"></el-input>
+          <el-input v-model="editForm.medicId"></el-input>
         </el-form-item>
         <el-form-item label="药品名称">
-          <el-input v-model="editForm.drugName"></el-input>
+          <el-input v-model="editForm.name"></el-input>
         </el-form-item>
         <el-form-item label="收费类别">
           <el-input v-model="editForm.chargeCategory"></el-input>
         </el-form-item>
         <el-form-item label="收费项目等级">
-          <el-input v-model="editForm.chargeLevel"></el-input>
+          <el-input v-model="editForm.expLevel"></el-input>
         </el-form-item>
         <el-form-item label="药品剂量单位">
           <el-input v-model="editForm.doseUnit"></el-input>
@@ -161,28 +160,28 @@
           <el-input v-model="editForm.maxPrice"></el-input>
         </el-form-item>
         <el-form-item label="是否需要审批标志">
-          <el-switch v-model="editForm.approvalFlag"></el-switch>
+          <el-switch v-model="editForm.approvalMark"></el-switch>
         </el-form-item>
         <el-form-item label="医院等级">
-          <el-input v-model="editForm.hospitalLevel"></el-input>
+          <el-input v-model="editForm.hosLevel"></el-input>
         </el-form-item>
         <el-form-item label="规格">
-          <el-input v-model="editForm.specification"></el-input>
+          <el-input v-model="editForm.size"></el-input>
         </el-form-item>
         <el-form-item label="药品商品名">
           <el-input v-model="editForm.drugBrandName"></el-input>
         </el-form-item>
         <el-form-item label="开始日期">
-          <el-date-picker v-model="editForm.startDate" type="date"></el-date-picker>
+          <el-date-picker v-model="editForm.startTime" type="date"></el-date-picker>
         </el-form-item>
         <el-form-item label="终止日期">
-          <el-date-picker v-model="editForm.endDate" type="date"></el-date-picker>
+          <el-date-picker v-model="editForm.endTime" type="date"></el-date-picker>
         </el-form-item>
         <el-form-item label="有效标识">
-          <el-switch v-model="editForm.validFlag"></el-switch>
+          <el-switch v-model="editForm.valid"></el-switch>
         </el-form-item>
         <el-form-item label="特检特制标志">
-          <el-switch v-model="editForm.specialFlag"></el-switch>
+          <el-switch v-model="editForm.specialMark"></el-switch>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -228,20 +227,20 @@ export default {
       token: {token: getToken()},
       //新建表单
       medicine: {
-        drugCode: '',
-        drugName: '',
+        medicId: '',
+        name: '',
         expType: [],
-        chargeLevel: '',
-        dosageUnit: '',
+        expLevel: '',
+        measurement: '',
         maxPrice: '',
-        approvalFlag: '',
-        hospitalLevel: '',
-        specification: '',
-        drugTradeName: '',
-        startDate: '',
-        endDate: '',
-        validFlag: '',
-        specialFlag: ''
+        approvalMark: '',
+        hosLevel: '',
+        size: '',
+        tradeName: '',
+        startTime: '',
+        endTime: '',
+        valid: '',
+        specialMark: ''
       },
       rules: {
         // 这里可以添加表单验证规则
@@ -253,40 +252,40 @@ export default {
         // 示例数据
         {
           id: 1,
-          drugCode: '001',
-          drugName: '药品A',
+          medicId: '001',
+          name: '药品A',
           chargeCategory: '类别1',
-          chargeLevel: '等级1',
+          expLevel: '等级1',
           doseUnit: 'mg',
           maxPrice: 100,
-          approvalFlag: true,
-          hospitalLevel: '三级甲等',
-          specification: '10mg/片',
+          approvalMark: true,
+          hosLevel: '三级甲等',
+          size: '10mg/片',
           drugBrandName: '品牌A',
-          startDate: '2024-01-01',
-          endDate: '2024-12-31',
-          validFlag: true,
-          specialFlag: false,
+          startTime: '2024-01-01',
+          endTime: '2024-12-31',
+          valid: true,
+          specialMark: false,
         },
         // 更多数据
       ],
       dialogVisible: false,
       editForm: {
         id: '',
-        drugCode: '',
-        drugName: '',
+        medicId: '',
+        name: '',
         chargeCategory: '',
-        chargeLevel: '',
+        expLevel: '',
         doseUnit: '',
         maxPrice: '',
-        approvalFlag: false,
-        hospitalLevel: '',
-        specification: '',
+        approvalMark: false,
+        hosLevel: '',
+        size: '',
         drugBrandName: '',
-        startDate: '',
-        endDate: '',
-        validFlag: false,
-        specialFlag: false,
+        startTime: '',
+        endTime: '',
+        valid: false,
+        specialMark: false,
       }
     }
   },
@@ -411,33 +410,33 @@ export default {
         setTimeout(() => {
           this.loading = false;
           this.options = [
-            { value: '西药', label: '西药' },
-            { value: '中成药', label: '中成药' },
-            { value: '中草药', label: '中草药' },
-            { value: '床位费', label: '床位费' },
-            { value: '化验费', label: '化验费' },
-            { value: '诊查费', label: '诊查费' },
-            { value: '检查费', label: '检查费' },
-            { value: '护理费', label: '护理费' },
-            { value: '特检费', label: '特检费' },
-            { value: '输氧费', label: '输氧费' },
-            { value: '治疗费', label: '治疗费' },
-            { value: '输血费', label: '输血费' },
-            { value: '特治费', label: '特治费' },
-            { value: '医疗服务费', label: '医疗服务费' },
-            { value: '手术费', label: '手术费' },
-            { value: '麻药费', label: '麻药费' },
-            { value: '产前检查费', label: '产前检查费' },
-            { value: '材料费', label: '材料费' },
-            { value: '新生儿费', label: '新生儿费' },
-            { value: '内置材料', label: '内置材料' },
-            { value: '其他费', label: '其他费' },
-            { value: '监护床位费', label: '监护床位费' },
-            { value: '非处方药', label: '非处方药' },
-            { value: '处方药', label: '处方药' },
-            { value: '甲类', label: '甲类' },
-            { value: '乙类', label: '乙类' },
-            { value: '丙类', label: '丙类' }
+            { value: '0', label: '西药' },
+            { value: '1', label: '中成药' },
+            { value: '2', label: '中草药' },
+            { value: '3', label: '床位费' },
+            { value: '4', label: '化验费' },
+            { value: '5', label: '诊查费' },
+            { value: '6', label: '检查费' },
+            { value: '7', label: '护理费' },
+            { value: '8', label: '特检费' },
+            { value: '9', label: '输氧费' },
+            { value: '10', label: '治疗费' },
+            { value: '11', label: '输血费' },
+            { value: '12', label: '特治费' },
+            { value: '13', label: '医疗服务费' },
+            { value: '14', label: '手术费' },
+            { value: '15', label: '麻药费' },
+            { value: '16', label: '产前检查费' },
+            { value: '17', label: '材料费' },
+            { value: '18', label: '新生儿费' },
+            { value: '19', label: '内置材料' },
+            { value: '20', label: '其他费' },
+            { value: '21', label: '监护床位费' },
+            { value: '22', label: '非处方药' },
+            { value: '23', label: '处方药' },
+            { value: '24', label: '甲类' },
+            { value: '25', label: '乙类' },
+            { value: '26', label: '丙类' }
           ];
         }, 200);
       } else {
