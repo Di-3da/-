@@ -1,6 +1,6 @@
 <template>
-  <div class="dashboard-container">
-    <img src="@/assets/welcome.png" width="100%" height="100%">
+  <div >
+    <img src="@/assets/welcome.jpg" width="100%" height="100%">
   </div>
 </template>
 

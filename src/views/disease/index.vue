@@ -58,19 +58,19 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-    
+    <br>
     <!--表格显示诊疗项目信息-->
-    <el-table :data="tableData" style="width: 92%" border>
-      <el-table-column type="index" width="100" label="序号" align="center"></el-table-column>
-      <el-table-column prop="disId" width="150" label="疾病编码" align="center"></el-table-column>
-      <el-table-column prop="name" width="200" label="病种名称" align="center"></el-table-column>
-      <el-table-column prop="type" width="150" label="疾病种类" align="center"></el-table-column>
-      <el-table-column prop="applyFlag" width="150" label="疾病报销标志" align="center">
+    <el-table :data="tableData" style="width: 100%" border>
+      <el-table-column type="index" width="80px" label="序号" align="center"></el-table-column>
+      <el-table-column prop="disId"  label="疾病编码" align="center"></el-table-column>
+      <el-table-column prop="name"  label="病种名称" align="center"></el-table-column>
+      <el-table-column prop="type"  label="疾病种类" align="center"></el-table-column>
+      <el-table-column prop="applyFlag"  label="疾病报销标志" align="center">
         <template slot-scope="scope">
           {{ scope.row.applyFlag ? '是' : '否' }}
         </template>
       </el-table-column>
-      <el-table-column prop="notes" width="200" label="备注" align="center"></el-table-column>
+      <el-table-column prop="notes"  label="备注" align="center"></el-table-column>
       <el-table-column align="center" width="150" label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="openEditDialog(scope.row)">编辑</el-button>

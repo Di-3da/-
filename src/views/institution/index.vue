@@ -153,9 +153,9 @@
         <el-form-item label="备注" prop="note">
           <el-input v-model="editForm.note"></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button @click="editDialogVisible = false">取消</el-button>
+        <el-form-item>  
           <el-button type="primary" @click="saveEditFacility">保存</el-button>
+          <el-button @click="editDialogVisible = false">取消</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -298,18 +298,24 @@
       });
     },
       openEditDialog(row) {
+
         this.editForm = { ...row };
-        this.dialogVisible = true;
+        this.editDialogVisible = true;
+
       },
       saveEditFacility() {
+        console.log(444444);
       this.$refs.editFacilityForm.validate((valid) => {
         if (valid) {
+          console.log('111111111')
           const index = this.tableData.findIndex(item => item.id === this.editForm.id);
           if (index !== -1) {
             this.$set(this.tableData, index, { ...this.editForm });
           }
+          console.log('222222222');
           this.editDialogVisible = false;
         }
+        console.log('333333');
       });
     },
       saveEdit() {
