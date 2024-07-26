@@ -16,7 +16,7 @@
         <br>
         <br>
         <!-- 个人信息表格 -->
-        <el-table :data="tableData" style="width: 100%" border>
+        <el-table :data="personData" style="width: 100%" border>
   <el-table-column prop="peopleId" label="个人ID" width="120"></el-table-column>
   <el-table-column prop="cardType" label="证件类型" width="120">
     <template slot-scope="scope">
@@ -31,7 +31,7 @@
       <span>{{ getLabelByValue(scope.row.nationality, ethnicities) }}</span>
     </template>
   </el-table-column>
-  <el-table-column prop="birthday" label="出生日期" width="120"></el-table-column>
+  <el-table-column prop="brithday" label="出生日期" width="120"></el-table-column>
   <el-table-column prop="workDate" label="参加工作日期" width="120"></el-table-column>
   <el-table-column prop="retirementDate" label="离退休日期" width="120"></el-table-column>
   <el-table-column prop="retirement" label="离退休状态" width="120">
@@ -39,12 +39,12 @@
       <span>{{ getLabelByValue(scope.row.retirement, retirementStatuses) }}</span>
     </template>
   </el-table-column>
-  <el-table-column prop="residentType" label="户口性质" width="120">
+  <el-table-column prop="residenceType" label="户口性质" width="120">
     <template slot-scope="scope">
-      <span>{{ getLabelByValue(scope.row.residentType, residentTypes) }}</span>
+      <span>{{ getLabelByValue(scope.row.residenceType, residenceTypes) }}</span>
     </template>
   </el-table-column>
-  <el-table-column prop="residenceAddress" label="户口所在地" width="150"></el-table-column>
+  <el-table-column prop="residenceAdress" label="户口所在地" width="150"></el-table-column>
   <el-table-column prop="education" label="文化程度" width="120">
     <template slot-scope="scope">
       <span>{{ getLabelByValue(scope.row.education, educationLevels) }}</span>
@@ -182,7 +182,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="出生日期">
-          <el-date-picker v-model="formPerson.birthday" type="date" placeholder="选择日期"></el-date-picker>
+          <el-date-picker v-model="formPerson.brithday" type="date" placeholder="选择日期"></el-date-picker>
         </el-form-item>
         <el-form-item label="参加工作日期">
           <el-date-picker v-model="formPerson.workDate" type="date" placeholder="选择日期"></el-date-picker>
@@ -196,12 +196,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="户口性质">
-          <el-select v-model="formPerson.residentType" placeholder="请选择户口性质">
-            <el-option v-for="type in residentTypes" :key="type.value" :label="type.label" :value="type.value"></el-option>
+          <el-select v-model="formPerson.residenceType" placeholder="请选择户口性质">
+            <el-option v-for="type in residenceTypes" :key="type.value" :label="type.label" :value="type.value"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="户口所在地">
-          <el-input v-model="formPerson.residenceAddress"></el-input>
+          <el-input v-model="formPerson.residenceAdress"></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="8">
@@ -331,18 +331,13 @@
 </template>
 
 <script>
-import { page, add, update, selectById, deleteById } from "@/api/people.js";
-import { findAll } from "@/api/people.js";
-import { getToken } from '@/utils/auth';
-
 export default {
     data() {
         return {
             searchEmp: {
-                id: '',
-                name: ""
+                id: ''
             },
-            tableData: [], // 存储个人信息的数组
+            personData: [], // 存储个人信息的数组
             formPerson: {
                 peopleId: '',
                 cardType: '',
@@ -350,12 +345,12 @@ export default {
                 name: '',
                 sex: '',
                 nationality: '',
-                birthday: '',
+                brithday: '',
                 workDate: '',
                 retirementDate: '',
                 retirement: '',
-                residentType: '',
-                residenceAddress: '',
+                residenceType: '',
+                residenceAdress: '',
                 education: '',
                 politicalStatus: '',
                 identity: '',
@@ -385,7 +380,7 @@ export default {
             total: 0,
             pageSize: 5,
             currentPage: 1,
-            alltableData: [], // 保存所有个人信息数据
+            allPersonData: [], // 保存所有个人信息数据
             documentTypes: [
                 { value: '0', label: '澳门特区护照/身份证明' },
                 { value: '1', label: '居民身份证' },
@@ -453,7 +448,7 @@ export default {
                 { value: '5', label: '退休状态_审核期' },
                 { value: '6', label: '退休状态_未退休' }
             ],
-            residentTypes: [
+            residenceTypes: [
                 { value: '0', label: '城镇' },
                 { value: '1', label: '农村' }
             ],
@@ -609,16 +604,91 @@ export default {
             console.log('查询人员编号:', this.searchEmp.id);
 
             // 假设查询结果如下：
-            this.alltableData = [];
+            this.allPersonData = [
+                {
+                    peopleId: '001',
+                    cardType: '0',
+                    cardId: '1234567890',
+                    name: '张三',
+                    sex: '0',
+                    nationality: '0',
+                    brithday: '1990-01-01',
+                    workDate: '2010-01-01',
+                    retirementDate: '',
+                    retirement: '',
+                    residenceType: '城市',
+                    residenceAdress: '北京',
+                    education: '4',
+                    politicalStatus: '0',
+                    identity: '',
+                    employment: '',
+                    technicalPosition: '工程师',
+                    workerLevel: '一级',
+                    marriage: '1',
+                    administrativePosition: '',
+                    note: '',
+                    companyId: '1001',
+                    medicalPersonnel: '',
+                    health: '0',
+                    modelWorker: '',
+                    cadre: '',
+                    civilServant: '',
+                    authorizedStrength: '',
+                    residentType: '',
+                    flexibleEmployment: '',
+                    migrantWorker: '',
+                    employer: '',
+                    militaryPersonnel: '',
+                    socialSecurityId: '9876543210',
+                    medinsId: '2001'
+                },
+                {
+                    peopleId: '002',
+                    cardType: '1',
+                    cardId: 'A1234567',
+                    name: '李四',
+                    sex: '1',
+                    nationality: '4',
+                    brithday: '1985-05-15',
+                    workDate: '2005-06-01',
+                    retirementDate: '',
+                    retirement: '',
+                    residenceType: '农村',
+                    residenceAdress: '天津',
+                    education: '5',
+                    politicalStatus: '2',
+                    identity: '',
+                    employment: '',
+                    technicalPosition: '高级工程师',
+                    workerLevel: '二级',
+                    marriage: '0',
+                    administrativePosition: '',
+                    note: '',
+                    companyId: '1002',
+                    medicalPersonnel: '',
+                    health: '1',
+                    modelWorker: '',
+                    cadre: '',
+                    civilServant: '',
+                    authorizedStrength: '',
+                    residentType: '',
+                    flexibleEmployment: '',
+                    migrantWorker: '',
+                    employer: '',
+                    militaryPersonnel: '',
+                    socialSecurityId: '8765432109',
+                    medinsId: '2002'
+                }
+                // 添加更多数据...
+            ];
 
-            this.total = this.alltableData.length;
+            this.total = this.allPersonData.length;
             this.updatePageData();
         },
         updatePageData() {
-          page(this.searchEmp.name, this.currentPage, this.pageSize).then((res) => {
-            this.total = res.data.data.total;
-            this.tableData = res.data.data.rows;
-          });
+            const start = (this.currentPage - 1) * this.pageSize;
+            const end = start + this.pageSize;
+            this.personData = this.allPersonData.slice(start, end);
         },
         handleSizeChange(size) {
             this.pageSize = size;
@@ -637,12 +707,12 @@ export default {
                 name: '',
                 sex: '',
                 nationality: '',
-                birthday: '',
+                brithday: '',
                 workDate: '',
                 retirementDate: '',
                 retirement: '',
-                residentType: '',
-                residenceAddress: '',
+                residenceType: '',
+                residenceAdress: '',
                 education: '',
                 politicalStatus: '',
                 identity: '',
@@ -676,19 +746,11 @@ export default {
         },
         savePerson() {
             if (this.dialogTitle === '新增个人信息') {
-              add(this.formPerson).then((response) => {
-              if (response.data.code === 1) {
-                this.$message({ type: 'success', message: '新增个人信息成功!' });
-                this.formPerson = {}; // 清空表单
-                this.search();
-              } else {
-                this.$message.error(response.data.msg);
-              }
-            });
+                this.add();
             } else {
-                const index = this.tableData.findIndex(person => person.peopleId === this.formPerson.peopleId);
+                const index = this.personData.findIndex(person => person.peopleId === this.formPerson.peopleId);
                 if (index !== -1) {
-                    this.$set(this.tableData, index, { ...this.formPerson });
+                    this.$set(this.personData, index, { ...this.formPerson });
                 }
             }
             this.dialogVisible = false;
@@ -703,9 +765,9 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                const index = this.tableData.findIndex(person => person.peopleId === row.peopleId);
+                const index = this.personData.findIndex(person => person.peopleId === row.peopleId);
                 if (index !== -1) {
-                    this.tableData.splice(index, 1);
+                    this.personData.splice(index, 1);
                     this.$message({
                         type: 'success',
                         message: '删除成功!'

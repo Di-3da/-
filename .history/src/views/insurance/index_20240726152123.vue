@@ -228,6 +228,7 @@
                     <el-table :data="categoryItems" border>
                         <el-table-column prop="code" label="编码"></el-table-column>
                         <el-table-column prop="name" label="名称"></el-table-column>
+                        <el-table-column prop="price" label="单价"></el-table-column>
                         <el-table-column label="操作">
                             <template slot-scope="scope">
                                 <el-button @click="selectCategoryItem(scope.row)">选择</el-button>
@@ -248,7 +249,7 @@
                     </el-col>
                     <el-col :span="8">
                         <el-form-item label="单价" label-width="80px">
-                            <el-input v-model="newPrescription.price" type="number" @input="calculateAmount"></el-input>
+                            <el-input v-model="newPrescription.price" type="number" disabled @input="calculateAmount"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -546,11 +547,11 @@ import { queryService } from '@/api/service';
       this.step4Visible = true;
   
       // 模拟审批过程
-      prescriptions = prescriptionDetails;
-      visit = {
-        presonId;
-      }
-      
+      setTimeout(() => {
+        this.step4Visible = false;
+        this.approved = true; // 模拟审批通过
+        this.step5Visible = true;
+      }, 2000);
     },
     closePrintDialog() {
       this.printDialogVisible = false;

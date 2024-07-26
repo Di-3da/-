@@ -44,7 +44,7 @@
       <span>{{ getLabelByValue(scope.row.residentType, residentTypes) }}</span>
     </template>
   </el-table-column>
-  <el-table-column prop="residenceAddress" label="户口所在地" width="150"></el-table-column>
+  <el-table-column prop="residenceAdress" label="户口所在地" width="150"></el-table-column>
   <el-table-column prop="education" label="文化程度" width="120">
     <template slot-scope="scope">
       <span>{{ getLabelByValue(scope.row.education, educationLevels) }}</span>
@@ -201,7 +201,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="户口所在地">
-          <el-input v-model="formPerson.residenceAddress"></el-input>
+          <el-input v-model="formPerson.residenceAdress"></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="8">
@@ -355,7 +355,7 @@ export default {
                 retirementDate: '',
                 retirement: '',
                 residentType: '',
-                residenceAddress: '',
+                residenceAdress: '',
                 education: '',
                 politicalStatus: '',
                 identity: '',
@@ -642,7 +642,7 @@ export default {
                 retirementDate: '',
                 retirement: '',
                 residentType: '',
-                residenceAddress: '',
+                residenceAdress: '',
                 education: '',
                 politicalStatus: '',
                 identity: '',

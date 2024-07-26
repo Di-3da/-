@@ -43,10 +43,3 @@ export function deleteById(id) {
       method: 'get'
     })
   }
-
-  export function queryMedicine(name, medicId) {
-    return request({
-      url: '/medicine/query?name='+name+'&medicId='+medicId,
-      method: 'get'
-    })
-  }

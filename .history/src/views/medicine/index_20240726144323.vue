@@ -1,5 +1,4 @@
 <template>
-  <!-- 修改 删除 不好用，总条数不显示 -->
   <div class="app-container">
     <!--搜索表单-->
     <el-form :inline="true" :model="searchClass" class="demo-form-inline">
@@ -11,15 +10,15 @@
         <el-button type="info" @click="clear">清空</el-button>
       </el-form-item>
     </el-form>
-    <br>
+
     <!--按钮-->
     <el-row>
       <el-button type="primary" size="medium" @click="addDialogVisible = true;">+ 新增药品</el-button>
     </el-row>
-    <br>
+<br>
     <!--新增数据对话框表单-->
-    <el-dialog title="新增药品项目" :visible.sync="addDialogVisible" width="50%">
-      <el-form ref="newDrugForm" :model="medicine" :rules="rules" label-width="150px" size="mini">
+    <el-dialog title="新增药品项目" :visible.sync="addDialogVisible" width="30%">
+      <el-form ref="newDrugForm":model="medicine" :rules="rules"  label-width="150px" size="mini">
         <el-form-item label="药品编码" prop="medicId">
           <el-input v-model="medicine.medicId"></el-input>
         </el-form-item>
@@ -101,132 +100,95 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+
     
     <!--表格显示药品信息-->
     <el-table :data="tableData" style="width: 100%" border>
-      <el-table-column prop="index" width="100" label="序号" align="center" type="index"></el-table-column>
-      <el-table-column prop="medicId" width="150" label="药品编码" align="center"></el-table-column>
-      <el-table-column prop="name" width="150" label="药品名称" align="center"></el-table-column>
-      <el-table-column label="收费类别" width="150" align="center">
-        <template slot-scope="scope">
-          {{ getExpTypeLabel(scope.row.expType) }}
-        </template>
-      </el-table-column>
-      <el-table-column label="收费项目等级" width="150" align="center">
-        <template slot-scope="scope">
-          {{ getExpLevelLabel(scope.row.expLevel) }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="measurement" width="150" label="药品剂量单位" align="center"></el-table-column>
-      <el-table-column prop="maxPrice" width="100" label="最高限价" align="center"></el-table-column>
-      <el-table-column prop="approvalMark" width="150" label="是否需要审批标志" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.approvalMark ? '是' : '否' }}
-        </template>
-      </el-table-column>
-      <el-table-column label="医院等级" align="center">
-        <template slot-scope="scope">
-          {{ getHosLevelLabel(scope.row.hosLevel) }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="size" width="150" label="规格" align="center"></el-table-column>
-      <el-table-column prop="tradeName" width="200" label="药品商品名" align="center"></el-table-column>
-      <el-table-column prop="startTime" width="150" label="开始日期" align="center"></el-table-column>
-      <el-table-column prop="endTime" width="150" label="终止日期" align="center"></el-table-column>
-      <el-table-column prop="valid" width="150" label="有效标识" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.valid ? '有效' : '无效' }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="specialMark" width="150" label="特检特制标志" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.specialMark ? '是' : '否' }}
-        </template>
-      </el-table-column>
-      <el-table-column width="150" align="center" label="操作" fixed="right">
-        <template slot-scope="scope" >
-          <el-button type="primary" size="small" @click="openEditDialog(scope.row)">编辑</el-button>
-          <el-button type="danger" size="small" @click="alert('clicked!');deleteById(scope.row.id)">删除</el-button>
-        </template>
-      </el-table-column>
+    <el-table-column prop="index" width="100" label="序号" align="center" type="index"></el-table-column>
+    <el-table-column prop="medicId" width="150" label="药品编码" align="center"></el-table-column>
+    <el-table-column prop="name" width="200" label="药品名称" align="center"></el-table-column>
+    <el-table-column prop="expType" width="150" label="收费类别" align="center"></el-table-column>
+    <el-table-column prop="expLevel" width="150" label="收费项目等级" align="center"></el-table-column>
+    <el-table-column prop="measurement" width="150" label="药品剂量单位" align="center"></el-table-column>
+    <el-table-column prop="maxPrice" width="150" label="最高限价" align="center"></el-table-column>
+    <el-table-column prop="approvalMark" width="150" label="是否需要审批标志" align="center">
+      <template slot-scope="scope">
+        {{ scope.row.approvalMark ? '是' : '否' }}
+      </template>
+    </el-table-column>
+    <el-table-column prop="hosLevel" width="150" label="医院等级" align="center"></el-table-column>
+    <el-table-column prop="size" width="150" label="规格" align="center"></el-table-column>
+    <el-table-column prop="tradeName" width="200" label="药品商品名" align="center"></el-table-column>
+    <el-table-column prop="startTime" width="150" label="开始日期" align="center"></el-table-column>
+    <el-table-column prop="endTime" width="150" label="终止日期" align="center"></el-table-column>
+    <el-table-column prop="valid" width="150" label="有效标识" align="center">
+      <template slot-scope="scope">
+        {{ scope.row.valid ? '有效' : '无效' }}
+      </template>
+    </el-table-column>
+    <el-table-column prop="specialMark" width="150" label="特检特制标志" align="center">
+      <template slot-scope="scope">
+        {{ scope.row.specialMark ? '是' : '否' }}
+      </template>
+    </el-table-column>
+    <el-table-column width="150" align="center" label="操作">
+      <template slot-scope="scope">
+        <el-button type="primary" size="small" @click="openEditDialog(scope.row)">编辑</el-button>
+        <el-button type="danger" size="small" @click="alert('clicked!');deleteById(scope.row.id)">删除</el-button>
+      </template>
+    </el-table-column>
     </el-table>
- 
     <!--编辑数据对话框表单-->
-    <el-dialog :visible.sync="dialogVisible" title="编辑药品" width="50%">
-  <el-form :model="editForm" label-width="150px">
-    <el-form-item label="药品编码">
-      <el-input v-model="editForm.medicId"></el-input>
-    </el-form-item>
-    <el-form-item label="药品名称">
-      <el-input v-model="editForm.name"></el-input>
-    </el-form-item>
-    <el-form-item label="收费类别">
-  <el-select v-model="editForm.expType" placeholder="请选择">
-    <el-option
-      v-for="(label, value) in expTypeOptions"
-      :key="value"
-      :label="label"
-      :value="value">
-    </el-option>
-  </el-select>
-</el-form-item>
-<el-form-item label="收费项目等级">
-  <el-select v-model="editForm.expLevel" placeholder="请选择">
-    <el-option
-      v-for="(label, value) in expLevelOptions"
-      :key="value"
-      :label="label"
-      :value="value">
-    </el-option>
-  </el-select>
-</el-form-item>
-    <el-form-item label="药品剂量单位">
-      <el-input v-model="editForm.measurement"></el-input>
-    </el-form-item>
-    <el-form-item label="最高限价">
-      <el-input v-model="editForm.maxPrice"></el-input>
-    </el-form-item>
-    <el-form-item label="是否需要审批标志">
-      <el-select v-model="editForm.approvalMark" placeholder="请选择">
-        <el-option label="是" value="true"></el-option>
-        <el-option label="否" value="false"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="医院等级">
-  <el-select v-model="editForm.hosLevel" placeholder="请选择">
-    <el-option
-      v-for="(label, value) in hosLevelOptions"
-      :key="value"
-      :label="label"
-      :value="value">
-    </el-option>
-  </el-select>
-</el-form-item>
-    <el-form-item label="规格">
-      <el-input v-model="editForm.size"></el-input>
-    </el-form-item>
-    <el-form-item label="药品商品名">
-      <el-input v-model="editForm.tradeName"></el-input>
-    </el-form-item>
-    <el-form-item label="开始日期">
-      <el-date-picker v-model="editForm.startTime" type="date" placeholder="选择日期" format="yyyy-MM-dd"></el-date-picker>
-    </el-form-item>
-    <el-form-item label="终止日期">
-      <el-date-picker v-model="editForm.endTime" type="date" placeholder="选择日期" format="yyyy-MM-dd"></el-date-picker>
-    </el-form-item>
-    <el-form-item label="有效标识">
-      <el-switch v-model="editForm.valid"></el-switch>
-    </el-form-item>
-    <el-form-item label="特检特制标志">
-      <el-switch v-model="editForm.specialMark"></el-switch>
-    </el-form-item>
-  </el-form>
-  <div slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取消</el-button>
-    <el-button type="primary" @click="saveEdit">保存</el-button>
-  </div>
-</el-dialog>
-
+    <el-dialog :visible.sync="dialogVisible" title="编辑药品">
+      <el-form :model="editForm">
+        <el-form-item label="药品编码">
+          <el-input v-model="editForm.medicId"></el-input>
+        </el-form-item>
+        <el-form-item label="药品名称">
+          <el-input v-model="editForm.name"></el-input>
+        </el-form-item>
+        <el-form-item label="收费类别">
+          <el-input v-model="editForm.expType"></el-input>
+        </el-form-item>
+        <el-form-item label="收费项目等级">
+          <el-input v-model="editForm.expLevel"></el-input>
+        </el-form-item>
+        <el-form-item label="药品剂量单位">
+          <el-input v-model="editForm.measurement"></el-input>
+        </el-form-item>
+        <el-form-item label="最高限价">
+          <el-input v-model="editForm.maxPrice"></el-input>
+        </el-form-item>
+        <el-form-item label="是否需要审批标志">
+          <el-switch v-model="editForm.approvalMark"></el-switch>
+        </el-form-item>
+        <el-form-item label="医院等级">
+          <el-input v-model="editForm.hosLevel"></el-input>
+        </el-form-item>
+        <el-form-item label="规格">
+          <el-input v-model="editForm.size"></el-input>
+        </el-form-item>
+        <el-form-item label="药品商品名">
+          <el-input v-model="editForm.tradeName"></el-input>
+        </el-form-item>
+        <el-form-item label="开始日期">
+          <el-date-picker v-model="editForm.startTime" type="date"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="终止日期">
+          <el-date-picker v-model="editForm.endTime" type="date"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="有效标识">
+          <el-switch v-model="editForm.valid"></el-switch>
+        </el-form-item>
+        <el-form-item label="特检特制标志">
+          <el-switch v-model="editForm.specialMark"></el-switch>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="saveEdit">保存</el-button>
+      </div>
+    </el-dialog>
 
     <!--分页工具条-->
     <el-pagination
@@ -235,7 +197,7 @@
       :background="background"
       :current-page="currentPage"
       :page-sizes="[5, 10, 15, 20]"
-      :page-size="pageSize"
+      :page-size="5"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalCount">
     </el-pagination>
@@ -250,30 +212,9 @@ import { getToken } from '@/utils/auth';
 export default {
   data() {
     return {
-      expTypeOptions: {
-        0: '西药',
-        1: '中成药',
-        2: '中草药',
-        22: '非处方药',
-        23: '处方药'
-      },
-      // 收费项目等级映射
-      expLevelOptions: {
-        0: '甲类',
-        1: '乙类',
-        2: '丙类'
-      },
-      // 医院等级映射
-      hosLevelOptions: {
-        0: '一级医院',
-        1: '二级医院',
-        2: '三级医院',
-        3: '社区医院',
-        4: '所有医院'
-      },
       background: true,
       pageSize: 5,
-      totalCount: 0, // 初始化为0
+      totalCount: 100,
       currentPage: 1,
       addDialogVisible: false,
       editDialogVisible: false,
@@ -283,12 +224,12 @@ export default {
       masterList: [],
       searchTime: ["", ""],
       tableData: [],
-      token: { token: getToken() },
+      token: {token: getToken()},
       //新建表单
       medicine: {
         medicId: '',
         name: '',
-        expType: '',
+        expType: [],
         expLevel: '',
         measurement: '',
         maxPrice: '',
@@ -354,34 +295,24 @@ export default {
     findAll().then((result) => {
       this.masterList = result.data.data.map(item => ({ id: item.id, name: item.name }));
     });
+    //远程搜索
+    this.list = this.states.map(item => {
+        return { value: `value:${item}`, label: `label:${item}` };
+      });
   },
 
   methods: {
-    // 在表格中使用的方法
-    getExpTypeLabel(value) {
-      return this.expTypeOptions[value] || '未知';
-    },
-    getExpLevelLabel(value) {
-      return this.expLevelOptions[value] || '未知';
-    },
-    getHosLevelLabel(value) {
-      return this.hosLevelOptions[value] || '未知';
-    },
+    
     page() {
       page(this.searchClass.name, this.currentPage, this.pageSize).then((res) => {
-        // 假设 API 返回的数据结构如下：
-        // { data: { total: 总条数, rows: [数据数组] } }
         this.totalCount = res.data.data.total;
         this.tableData = res.data.data.rows;
-      }).catch((error) => {
-        this.$message.error('加载数据失败，请稍后重试');
       });
     },
     validateForm(formName) {
       this.$refs[formName].validate((valid) => {
-        if (valid) {
+          // 处理保存逻辑
           this.addNewClass();
-        }
       });
     },
     addNewClass() {
@@ -394,28 +325,39 @@ export default {
         } else {
           this.$message.error(response.data.msg);
         }
-      }).catch((error) => {
-        this.$message.error('新增药品失败，请稍后重试');
       });
     },
-
     openEditDialog(row) {
-    this.editForm = { ...row };
-
-    this.dialogVisible = true;
-  },
-
+      this.editForm = { ...row };
+      this.dialogVisible = true;
+    },
     saveEdit() {
-      update(this.editForm).then((response) => {
+      const index = this.tableData.findIndex(item => item.id === this.editForm.id);
+      if (index !== -1) {
+        this.$set(this.tableData, index, { ...this.editForm });
+      }
+      this.dialogVisible = false;
+    },
+    updateClass() {
+      update(this.editClass).then((response) => {
         if (response.data.code === 1) {
           this.$message({ type: 'success', message: '药品更新成功!' });
-          this.dialogVisible = false;
+          this.editDialogVisible = false;
           this.page(); // 重新加载数据
         } else {
           this.$message.error(response.data.msg);
         }
-      }).catch((error) => {
-        this.$message.error('更新药品失败，请稍后重试');
+      });
+    },
+    update(id) {
+
+      this.editDialogVisible = true;
+
+      selectById(id).then((result) => {
+        if (result.data.code === 1) {
+          this.editClass = result.data.data;
+          this.editClass;
+        } 
       });
     },
     deleteById(id) {
@@ -432,15 +374,18 @@ export default {
           } else {
             this.$message.error(response.data.msg);
           }
-        }).catch((error) => {
-          this.$message.error('删除药品失败，请稍后重试');
         });
       }).catch(() => {
         this.$message.info('已取消删除');
       });
     },
+    showEditDialog(classData) {
+      this.editClass = { ...classData };
+      this.editDialogVisible = true;
+    },
     clear() {
       this.searchClass = { name: "" };
+      this.searchTime = ["", ""];
       this.page();
     },
     onSubmit() {
@@ -454,6 +399,10 @@ export default {
     handleCurrentChange(newPage) {
       this.currentPage = newPage;
       this.page();
+    },
+    getMasterName(empId) {
+      const master = this.masterList.find(master => master.id === empId);
+      return master ? master.name : '未知';
     },
     remoteMethod(query) {
       if (query !== '') {
@@ -473,10 +422,22 @@ export default {
         this.options = [];
       }
     },
+      update(id) {
+      // 编辑操作
+    },
+    deleteById(id) {
+      // 删除操作
+    },
+
+   
     
   }
 };
 </script>
+
+
+
+
 
 <style>
 .app-container {
@@ -506,3 +467,5 @@ export default {
   display: block;
 }
 </style>
+
+
