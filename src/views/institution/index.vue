@@ -101,7 +101,7 @@
     </el-table>
       <!--编辑数据对话框表单-->
       <el-dialog title="编辑医疗服务设施" :visible.sync="editDialogVisible" width="30%">
-      <el-form ref="editFacilityForm" :model="editForm" :rules="rules" label-width="150px" size="mini">
+      <el-form model="editForm" label-width="150px">
         <el-form-item label="医疗机构编码" prop="institutionId">
           <el-input v-model="editForm.institutionId"></el-input>
         </el-form-item>
@@ -153,10 +153,10 @@
         <el-form-item label="备注" prop="note">
           <el-input v-model="editForm.note"></el-input>
         </el-form-item>
-        <div slot="footer" class="dialog-footer">
+        <el-form-item>
           <el-button @click="editDialogVisible = false">取消</el-button>
           <el-button type="primary" @click="saveEditFacility">保存</el-button>
-        </div>
+        </el-form-item>
       </el-form>
     </el-dialog>
       <!--分页工具条-->
@@ -384,47 +384,7 @@
         const master = this.masterList.find(master => master.id === empId);
         return master ? master.name : '未知';
       },
-      //远程搜索
-      remoteMethod(query) {
-      if (query !== '') {
-        this.loading = true;
-        // 模拟远程搜索
-        setTimeout(() => {
-          this.loading = false;
-          this.options = [
-            { value: '西药', label: '西药' },
-            { value: '中成药', label: '中成药' },
-            { value: '中草药', label: '中草药' },
-            { value: '床位费', label: '床位费' },
-            { value: '化验费', label: '化验费' },
-            { value: '诊查费', label: '诊查费' },
-            { value: '检查费', label: '检查费' },
-            { value: '护理费', label: '护理费' },
-            { value: '特检费', label: '特检费' },
-            { value: '输氧费', label: '输氧费' },
-            { value: '治疗费', label: '治疗费' },
-            { value: '输血费', label: '输血费' },
-            { value: '特治费', label: '特治费' },
-            { value: '医疗服务费', label: '医疗服务费' },
-            { value: '手术费', label: '手术费' },
-            { value: '麻药费', label: '麻药费' },
-            { value: '产前检查费', label: '产前检查费' },
-            { value: '材料费', label: '材料费' },
-            { value: '新生儿费', label: '新生儿费' },
-            { value: '内置材料', label: '内置材料' },
-            { value: '其他费', label: '其他费' },
-            { value: '监护床位费', label: '监护床位费' },
-            { value: '非处方药', label: '非处方药' },
-            { value: '处方药', label: '处方药' },
-            { value: '甲类', label: '甲类' },
-            { value: '乙类', label: '乙类' },
-            { value: '丙类', label: '丙类' }
-          ];
-        }, 200);
-      } else {
-        this.options = [];
-      }
-    },
+      
         update(id) {
         // 编辑操作
       },
