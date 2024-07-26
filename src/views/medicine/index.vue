@@ -103,6 +103,7 @@
 
     
     <!--表格显示药品信息-->
+    <!--yidianxiugai-->
     <el-table :data="tableData" style="width: 100%" border>
     <el-table-column prop="index" width="100" label="序号" align="center" type="index"></el-table-column>
     <el-table-column prop="medicId" width="150" label="药品编码" align="center"></el-table-column>
