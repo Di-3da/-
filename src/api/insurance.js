@@ -6,7 +6,12 @@ export function findAll() {
         method: 'get'
     })
 }
-
+export function findAll2() {
+  return request({
+      url: '/disease',
+      method: 'get'
+  })
+}
 export function add(insurance) {
     return request({
         url: '/insurance',

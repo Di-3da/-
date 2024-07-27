@@ -114,6 +114,14 @@
                     <el-col :span="12">
                         <el-form-item label="病种编码">
                             <el-input v-model="diseaseCode"></el-input>
+                            <el-select v-model="diseaseCode.disId" placeholder="请选择" style="width:100%">
+              <el-option
+                v-for="item in diseaseCodeList"
+                :key="item.value"
+                :label="item.disId"
+                :value="item.disId"
+              />
+            </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -317,7 +325,7 @@
   
   <script>
 
-    import { page, add, update, selectById, deleteById } from "@/api/insurance.js";
+    import { page, add, update, selectById, deleteById,findAll2 } from "@/api/insurance.js";
     import { query } from "@/api/people.js";
     import { queryMedicine } from "@/api/medicine.js"
     import { findAll } from "@/api/insurance.js";
@@ -326,6 +334,7 @@ import { queryService } from '@/api/service';
   export default {
   data() {
     return {
+        diseaseCodeList:[],
       expenseClaims: [
         { id: 1, name: '张三', amount: 100, status: '已提交' },
         // 更多示例数据
@@ -384,6 +393,12 @@ import { queryService } from '@/api/service';
       }
     };
   },
+  mounted() {
+      this.page(); //当页面加载完成后，发送异步请求，获取数据
+      findAll2().then((result) => {
+        this.diseaseCodeList = result.data.data;
+      });
+    },
   methods: {
   
     applyReimbursement() {
@@ -548,7 +563,7 @@ import { queryService } from '@/api/service';
       // 模拟审批过程
       prescriptions = prescriptionDetails;
       visit = {
-        presonId;
+        presonId,
       }
       
     },

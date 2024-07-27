@@ -1,5 +1,4 @@
 <template>
-  <!-- 修改 删除 不好用，总条数不显示 -->
   <div class="app-container">
     <!--搜索表单-->
     <el-form :inline="true" :model="searchClass" class="demo-form-inline">
@@ -78,10 +77,10 @@
           <el-input v-model="medicine.tradeName"></el-input>
         </el-form-item>
         <el-form-item label="开始日期" prop="startTime">
-          <el-date-picker v-model="medicine.startTime" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
+          <el-date-picker v-model="medicine.startTime" clearable type="date" placeholder="选择日期" size="small" style="width:100%" format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
         <el-form-item label="终止日期" prop="endTime">
-          <el-date-picker v-model="medicine.endTime" clearable type="date" placeholder="选择日期" size="small" style="width:100%"></el-date-picker>
+          <el-date-picker v-model="medicine.endTime" clearable type="date" placeholder="选择日期" size="small" style="width:100%" format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
         <el-form-item label="有效标志" prop="valid">
           <el-select v-model="medicine.valid" placeholder="请选择">
@@ -131,8 +130,16 @@
       </el-table-column>
       <el-table-column prop="size" width="150" label="规格" align="center"></el-table-column>
       <el-table-column prop="tradeName" width="200" label="药品商品名" align="center"></el-table-column>
-      <el-table-column prop="startTime" width="150" label="开始日期" align="center"></el-table-column>
-      <el-table-column prop="endTime" width="150" label="终止日期" align="center"></el-table-column>
+      <el-table-column prop="startTime" width="150" label="开始日期" align="center">
+        <template slot-scope="scope">
+          {{ formatDate(scope.row.startTime) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="endTime" width="150" label="终止日期" align="center">
+        <template slot-scope="scope">
+          {{ formatDate(scope.row.endTime) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="valid" width="150" label="有效标识" align="center">
         <template slot-scope="scope">
           {{ scope.row.valid ? '有效' : '无效' }}
@@ -144,89 +151,88 @@
         </template>
       </el-table-column>
       <el-table-column width="150" align="center" label="操作" fixed="right">
-        <template slot-scope="scope" >
+        <template slot-scope="scope">
           <el-button type="primary" size="small" @click="openEditDialog(scope.row)">编辑</el-button>
-          <el-button type="danger" size="small" @click="alert('clicked!');deleteById(scope.row.id)">删除</el-button>
+          <el-button type="danger" size="small" @click="deleteById(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
  
     <!--编辑数据对话框表单-->
     <el-dialog :visible.sync="dialogVisible" title="编辑药品" width="50%">
-  <el-form :model="editForm" label-width="150px">
-    <el-form-item label="药品编码">
-      <el-input v-model="editForm.medicId"></el-input>
-    </el-form-item>
-    <el-form-item label="药品名称">
-      <el-input v-model="editForm.name"></el-input>
-    </el-form-item>
-    <el-form-item label="收费类别">
-  <el-select v-model="editForm.expType" placeholder="请选择">
-    <el-option
-      v-for="(label, value) in expTypeOptions"
-      :key="value"
-      :label="label"
-      :value="value">
-    </el-option>
-  </el-select>
-</el-form-item>
-<el-form-item label="收费项目等级">
-  <el-select v-model="editForm.expLevel" placeholder="请选择">
-    <el-option
-      v-for="(label, value) in expLevelOptions"
-      :key="value"
-      :label="label"
-      :value="value">
-    </el-option>
-  </el-select>
-</el-form-item>
-    <el-form-item label="药品剂量单位">
-      <el-input v-model="editForm.measurement"></el-input>
-    </el-form-item>
-    <el-form-item label="最高限价">
-      <el-input v-model="editForm.maxPrice"></el-input>
-    </el-form-item>
-    <el-form-item label="是否需要审批标志">
-      <el-select v-model="editForm.approvalMark" placeholder="请选择">
-        <el-option label="是" value="true"></el-option>
-        <el-option label="否" value="false"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="医院等级">
-  <el-select v-model="editForm.hosLevel" placeholder="请选择">
-    <el-option
-      v-for="(label, value) in hosLevelOptions"
-      :key="value"
-      :label="label"
-      :value="value">
-    </el-option>
-  </el-select>
-</el-form-item>
-    <el-form-item label="规格">
-      <el-input v-model="editForm.size"></el-input>
-    </el-form-item>
-    <el-form-item label="药品商品名">
-      <el-input v-model="editForm.tradeName"></el-input>
-    </el-form-item>
-    <el-form-item label="开始日期">
-      <el-date-picker v-model="editForm.startTime" type="date" placeholder="选择日期" format="yyyy-MM-dd"></el-date-picker>
-    </el-form-item>
-    <el-form-item label="终止日期">
-      <el-date-picker v-model="editForm.endTime" type="date" placeholder="选择日期" format="yyyy-MM-dd"></el-date-picker>
-    </el-form-item>
-    <el-form-item label="有效标识">
-      <el-switch v-model="editForm.valid"></el-switch>
-    </el-form-item>
-    <el-form-item label="特检特制标志">
-      <el-switch v-model="editForm.specialMark"></el-switch>
-    </el-form-item>
-  </el-form>
-  <div slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取消</el-button>
-    <el-button type="primary" @click="saveEdit">保存</el-button>
-  </div>
-</el-dialog>
-
+      <el-form :model="editForm" label-width="150px" :rules="rules">
+        <el-form-item label="药品编码" prop="medicId">
+          <el-input v-model="editForm.medicId"></el-input>
+        </el-form-item>
+        <el-form-item label="药品名称" prop="name">
+          <el-input v-model="editForm.name"></el-input>
+        </el-form-item>
+        <el-form-item label="收费类别" prop="expType">
+          <el-select v-model="editForm.expType" placeholder="请选择">
+            <el-option
+              v-for="(label, value) in expTypeOptions"
+              :key="value"
+              :label="label"
+              :value="value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="收费项目等级" prop="expLevel">
+          <el-select v-model="editForm.expLevel" placeholder="请选择">
+            <el-option
+              v-for="(label, value) in expLevelOptions"
+              :key="value"
+              :label="label"
+              :value="value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="药品剂量单位" prop="measurement">
+          <el-input v-model="editForm.measurement"></el-input>
+        </el-form-item>
+        <el-form-item label="最高限价" prop="maxPrice">
+          <el-input v-model="editForm.maxPrice"></el-input>
+        </el-form-item>
+        <el-form-item label="是否需要审批标志" prop="approvalMark">
+          <el-select v-model="editForm.approvalMark" placeholder="请选择">
+            <el-option label="是" value="true"></el-option>
+            <el-option label="否" value="false"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="医院等级" prop="hosLevel">
+          <el-select v-model="editForm.hosLevel" placeholder="请选择">
+            <el-option
+              v-for="(label, value) in hosLevelOptions"
+              :key="value"
+              :label="label"
+              :value="value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="规格" prop="size">
+          <el-input v-model="editForm.size"></el-input>
+        </el-form-item>
+        <el-form-item label="药品商品名" prop="tradeName">
+          <el-input v-model="editForm.tradeName"></el-input>
+        </el-form-item>
+        <el-form-item label="开始日期" prop="startTime">
+          <el-date-picker v-model="editForm.startTime" type="date" placeholder="选择日期" format="yyyy-MM-dd"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="终止日期" prop="endTime">
+          <el-date-picker v-model="editForm.endTime" type="date" placeholder="选择日期" format="yyyy-MM-dd"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="有效标识" prop="valid">
+          <el-switch v-model="editForm.valid"></el-switch>
+        </el-form-item>
+        <el-form-item label="特检特制标志" prop="specialMark">
+          <el-switch v-model="editForm.specialMark"></el-switch>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="saveEdit">保存</el-button>
+      </div>
+    </el-dialog>
 
     <!--分页工具条-->
     <el-pagination
@@ -302,7 +308,20 @@ export default {
         specialMark: ''
       },
       rules: {
-        // 这里可以添加表单验证规则
+        medicId: [{ required: true, message: '请输入药品编码', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入药品名称', trigger: 'blur' }],
+        expType: [{ required: true, message: '请选择收费类别', trigger: 'change' }],
+        expLevel: [{ required: true, message: '请选择收费项目等级', trigger: 'change' }],
+        measurement: [{ required: true, message: '请输入药品剂量单位', trigger: 'blur' }],
+        maxPrice: [{ required: true, message: '请输入最高限价', trigger: 'blur' }],
+        approvalMark: [{ required: true, message: '请选择是否需要审批标志', trigger: 'change' }],
+        hosLevel: [{ required: true, message: '请选择医院等级', trigger: 'change' }],
+        size: [{ required: true, message: '请输入规格', trigger: 'blur' }],
+        tradeName: [{ required: true, message: '请输入药品商品名', trigger: 'blur' }],
+        startTime: [{ required: true, message: '请选择开始日期', trigger: 'change' }],
+        endTime: [{ required: true, message: '请选择终止日期', trigger: 'change' }],
+        valid: [{ required: true, message: '请选择有效标志', trigger: 'change' }],
+        specialMark: [{ required: true, message: '请选择特检特制标志', trigger: 'change' }]
       },
       options: [], // 收费类别选项
       loading: false, // 远程加载状态
@@ -369,8 +388,6 @@ export default {
     },
     page() {
       page(this.searchClass.name, this.currentPage, this.pageSize).then((res) => {
-        // 假设 API 返回的数据结构如下：
-        // { data: { total: 总条数, rows: [数据数组] } }
         this.totalCount = res.data.data.total;
         this.tableData = res.data.data.rows;
       }).catch((error) => {
@@ -398,13 +415,10 @@ export default {
         this.$message.error('新增药品失败，请稍后重试');
       });
     },
-
     openEditDialog(row) {
-    this.editForm = { ...row };
-
-    this.dialogVisible = true;
-  },
-
+      this.editForm = { ...row };
+      this.dialogVisible = true;
+    },
     saveEdit() {
       update(this.editForm).then((response) => {
         if (response.data.code === 1) {
@@ -419,7 +433,6 @@ export default {
       });
     },
     deleteById(id) {
-      alert(id)
       this.$confirm('此操作将永久删除该药品, 是否继续?', '警告', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -473,7 +486,9 @@ export default {
         this.options = [];
       }
     },
-    
+    formatDate(date) {
+      return date ? date.split('T')[0] : '';
+    }
   }
 };
 </script>
